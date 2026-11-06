@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#c3deff;--ink:#050506;--pink:#fce4ec;--line:#e7f2ff;--muted:#292929}
+:root{--bg:#c3deff;--ink:#050506;--pink:#aabee5;--pinkd:#aabee5;--line:#e7f2ff;--muted:#292929}
 *{box-sizing:border-box}
 body {
   margin: 0;
@@ -32,7 +32,7 @@ header {
   position: relative;
 }
 
-/* --- THIẾT KẾ NÚT GẠT NGÔN NGỮ MỚI (CÓ ANIMATION) --- */
+/* --- NÚT GẠT NGÔN NGỮ ĐÃ ĐƯỢC CHỈNH LẠI CHUẨN KHỚP & MÀU VÀNG NHÓM 1 --- */
 .lang-switch-container {
   position: absolute;
   top: 15px;
@@ -41,31 +41,34 @@ header {
   align-items: center;
   background: #fff;
   border: 2px solid var(--ink);
-  border-radius: 30px;
+  border-radius: 24px;
   width: 150px;
-  height: 42px;
+  height: 40px;
   cursor: pointer;
-  position: absolute;
   overflow: hidden;
   box-shadow: 0 3px 8px rgba(0,0,0,0.12);
 }
 
-/* Phần nền trượt màu hồng nhạt */
+/* Khối nền trượt màu vàng nhóm 1 (#fff6d1), ôm sát viền trong */
 .lang-slider {
   position: absolute;
-  top: 2px;
-  bottom: 2px;
-  width: 71px;
-  background: var(--pink);
-  border: 2px solid var(--ink);
-  border-radius: 25px;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  width: 75px;
+  background: #fff6d1;
+  border-right: 2px solid var(--ink);
+  border-radius: 22px 0 0 22px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.3s, border-right 0.3s, border-left 0.3s;
   z-index: 1;
 }
 
-/* Khi sang tiếng Việt, trượt sang phải */
+/* Khi chuyển sang tiếng Việt, trượt sang phải và đảo bo góc */
 .lang-switch-container.is-vi .lang-slider {
-  transform: translateX(71px);
+  transform: translateX(75px);
+  border-radius: 0 22px 22px 0;
+  border-right: none;
+  border-left: 2px solid var(--ink);
 }
 
 .lang-option {
@@ -75,7 +78,7 @@ header {
   justify-content: center;
   gap: 6px;
   font-weight: 800;
-  font-size: 0.85krem;
+  font-size: 0.85rem;
   z-index: 2;
   color: var(--ink);
   user-select: none;
@@ -89,7 +92,7 @@ header {
   box-shadow: 0 0 1px rgba(0,0,0,0.3);
   object-fit: cover;
 }
-/* -------------------------------------------------- */
+/* ------------------------------------------------------------------ */
 
 .header-content {
   width: 100%;
@@ -249,16 +252,13 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
 </head>
 <body>
 <header>
-  <!-- NÚT GẠT NGÔN NGỮ CÓ ANIMATION TRƯỢT VÀ CỜ -->
   <div id="langToggle" class="lang-switch-container" role="button" aria-label="Toggle Language">
     <div class="lang-slider"></div>
     <div class="lang-option">
-      <!-- Cờ Mỹ SVG -->
       <svg viewBox="0 0 7410 3900"><rect width="7410" height="3900" fill="#b22234"/><path d="M0,450H7410m0,600H0m0,600H7410m0,600H0m0,600H7410m0,600H0" stroke="#fff" stroke-width="300"/><rect width="2964" height="2100" fill="#3c3b6e"/></svg>
       <span>ENG</span>
     </div>
     <div class="lang-option">
-      <!-- Cờ Việt Nam SVG -->
       <svg viewBox="0 0 900 600"><rect width="900" height="600" fill="#da251d"/><polygon points="450,175 487,290 605,290 510,356 545,471 450,403 355,471 390,356 295,290 413,290" fill="#ffcd00"/></svg>
       <span>VIE</span>
     </div>
@@ -512,7 +512,6 @@ function switchLanguage() {
   currentLang = (currentLang === 'vi') ? 'en' : 'vi';
   const t = langData[currentLang];
 
-  // Xử lý hiệu ứng trượt gạt của nút ngôn ngữ
   const container = $('#langToggle');
   if (currentLang === 'en') {
     container.classList.remove('is-vi');
