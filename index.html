@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#c3deff;--ink:#050506;--pink:#aabee5;--pinkd:#aabee5;--line:#e7f2ff;--muted:#292929}
+:root{--bg:#c3deff;--ink:#050506;--pink:#fce4ec;--line:#e7f2ff;--muted:#292929}
 *{box-sizing:border-box}
 body {
   margin: 0;
@@ -32,26 +32,64 @@ header {
   position: relative;
 }
 
-.lang-switch {
+/* --- THIẾT KẾ NÚT GẠT NGÔN NGỮ MỚI (CÓ ANIMATION) --- */
+.lang-switch-container {
   position: absolute;
   top: 15px;
   right: 20px;
+  display: flex;
+  align-items: center;
   background: #fff;
   border: 2px solid var(--ink);
-  border-radius: 20px;
-  padding: 4px 12px;
-  font-weight: 800;
-  font-size: 0.9rem;
+  border-radius: 30px;
+  width: 150px;
+  height: 42px;
   cursor: pointer;
-  font-family: inherit;
+  position: absolute;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+/* Phần nền trượt màu hồng nhạt */
+.lang-slider {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  width: 71px;
+  background: var(--pink);
+  border: 2px solid var(--ink);
+  border-radius: 25px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+/* Khi sang tiếng Việt, trượt sang phải */
+.lang-switch-container.is-vi .lang-slider {
+  transform: translateX(71px);
+}
+
+.lang-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 800;
+  font-size: 0.85krem;
+  z-index: 2;
   color: var(--ink);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: all 0.2s;
+  user-select: none;
+  height: 100%;
 }
-.lang-switch:hover {
-  background: var(--ink);
-  color: #fff;
+
+.lang-option svg {
+  width: 20px;
+  height: 14px;
+  border-radius: 2px;
+  box-shadow: 0 0 1px rgba(0,0,0,0.3);
+  object-fit: cover;
 }
+/* -------------------------------------------------- */
 
 .header-content {
   width: 100%;
@@ -211,14 +249,28 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
 </head>
 <body>
 <header>
-  <button id="langToggle" class="lang-switch" type="button">ENG / VIỆT</button>
+  <!-- NÚT GẠT NGÔN NGỮ CÓ ANIMATION TRƯỢT VÀ CỜ -->
+  <div id="langToggle" class="lang-switch-container" role="button" aria-label="Toggle Language">
+    <div class="lang-slider"></div>
+    <div class="lang-option">
+      <!-- Cờ Mỹ SVG -->
+      <svg viewBox="0 0 7410 3900"><rect width="7410" height="3900" fill="#b22234"/><path d="M0,450H7410m0,600H0m0,600H7410m0,600H0m0,600H7410m0,600H0" stroke="#fff" stroke-width="300"/><rect width="2964" height="2100" fill="#3c3b6e"/></svg>
+      <span>ENG</span>
+    </div>
+    <div class="lang-option">
+      <!-- Cờ Việt Nam SVG -->
+      <svg viewBox="0 0 900 600"><rect width="900" height="600" fill="#da251d"/><polygon points="450,175 487,290 605,290 510,356 545,471 450,403 355,471 390,356 295,290 413,290" fill="#ffcd00"/></svg>
+      <span>VIE</span>
+    </div>
+  </div>
+
   <div class="header-content">
     <h1 id="t-title">[evegoes studio]<br>Pokémon custom case</h1>
     <div class="sub">
       <div class="info-box" id="t-infobox">
         Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card chỉ có 1 chiếc, tất cả là offical card.<br>
-        - Đối với dòng iphone: Bạn chọn card và chọn phân loại iphone để xem tổng giá.<br>
-        - Các dòng android giá sẽ cao hơn iphone từ 20-40k, nhắn cho shop để nhận báo giá ạ.
+        - Đối với dòng máy: Bạn chọn card và chọn phân loại để xem tổng giá.<br>
+        - Shop sử dụng ốp lưng cứng cho tất cả dòng điện thoại.
       </div>
 
       <div class="notes header-notes">
@@ -373,7 +425,6 @@ function formatGroupName(groupName) {
 
 const langData = {
   vi: {
-    toggleBtn: "ENG / VIỆT",
     title: "[evegoes studio]<br>Pokémon custom case",
     infobox: "Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card chỉ có 1 chiếc, tất cả là offical card.<br>- Đối với dòng máy: Bạn chọn card và chọn phân loại để xem tổng giá.<br>- Shop sử dụng ốp lưng cứng cho tất cả dòng điện thoại.",
     noteTitle: "Lưu ý (Đọc kỹ)",
@@ -415,7 +466,6 @@ const langData = {
     soldCardLabel: ", đã bán"
   },
   en: {
-    toggleBtn: "ENG / VIỆT",
     title: "[evegoes studio]<br>Pokémon custom case",
     infobox: "Cards are sorted by price group from high to low. Each card is unique (1 available), and all are official.<br>- Select a card and choose your phone model to see the total price.<br>- We use high-quality hard cases for all phone models.<br><br>★ International shipping is available via PayPal/Remitly.",
     noteTitle: "Important Notes (Please read)",
@@ -462,7 +512,14 @@ function switchLanguage() {
   currentLang = (currentLang === 'vi') ? 'en' : 'vi';
   const t = langData[currentLang];
 
-  $('#langToggle').textContent = t.toggleBtn;
+  // Xử lý hiệu ứng trượt gạt của nút ngôn ngữ
+  const container = $('#langToggle');
+  if (currentLang === 'en') {
+    container.classList.remove('is-vi');
+  } else {
+    container.classList.add('is-vi');
+  }
+
   $('#t-title').innerHTML = t.title;
   $('#t-infobox').innerHTML = t.infobox;
   $('#t-noteTitle').textContent = t.noteTitle;
@@ -501,7 +558,6 @@ function switchLanguage() {
     $('#shipRegion').value = 'none';
   }
 
-  // Cập nhật lại phần nhận / không nhận dòng máy trong dialog nếu đang mở
   if (current && $('#dlg').open) {
     updateSupportedText();
     estimate();
@@ -638,7 +694,6 @@ async function estimate() {
     return;
   }
 
-  // Cho phép cả Android tính giá bằng với iPhone theo đúng yêu cầu
   const seq = ++quoteSeq;
   box.textContent = t.estQuote;
   try {
