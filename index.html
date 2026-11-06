@@ -32,7 +32,7 @@ header {
   position: relative;
 }
 
-/* --- NÚT GẠT NGÔN NGỮ ĐÃ ĐƯỢC CHỈNH LẠI CHUẨN KHỚP & MÀU VÀNG NHÓM 1 --- */
+/* --- NÚT GẠT NGÔN NGỮ KIỂU VIÊN THUỐC BO TRÒN ĐỘC LẬP --- */
 .lang-switch-container {
   position: absolute;
   top: 15px;
@@ -45,30 +45,28 @@ header {
   width: 150px;
   height: 40px;
   cursor: pointer;
-  overflow: hidden;
+  padding: 3px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+  position: absolute;
 }
 
-/* Khối nền trượt màu vàng nhóm 1 (#fff6d1), ôm sát viền trong */
+/* Khối nền trượt màu vàng nhóm 1 (#fff6d1) dạng viên thuốc nhỏ bo tròn 4 góc */
 .lang-slider {
   position: absolute;
-  top: 0px;
-  left: 0px;
-  bottom: 0px;
-  width: 75px;
+  top: 3px;
+  left: 3px;
+  width: 70px;
+  height: 30px;
   background: #fff6d1;
-  border-right: 2px solid var(--ink);
-  border-radius: 22px 0 0 22px;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.3s, border-right 0.3s, border-left 0.3s;
+  border: 2px solid var(--ink);
+  border-radius: 17px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
 }
 
-/* Khi chuyển sang tiếng Việt, trượt sang phải và đảo bo góc */
+/* Mặc định mở trang là Tiếng Việt -> Trượt sang phải */
 .lang-switch-container.is-vi .lang-slider {
-  transform: translateX(75px);
-  border-radius: 0 22px 22px 0;
-  border-right: none;
-  border-left: 2px solid var(--ink);
+  transform: translateX(71px);
 }
 
 .lang-option {
@@ -76,7 +74,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
   font-weight: 800;
   font-size: 0.85rem;
   z-index: 2;
@@ -86,8 +84,8 @@ header {
 }
 
 .lang-option svg {
-  width: 20px;
-  height: 14px;
+  width: 18px;
+  height: 13px;
   border-radius: 2px;
   box-shadow: 0 0 1px rgba(0,0,0,0.3);
   object-fit: cover;
@@ -252,7 +250,8 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
 </head>
 <body>
 <header>
-  <div id="langToggle" class="lang-switch-container" role="button" aria-label="Toggle Language">
+  <!-- Mặc định ban đầu có class 'is-vi' để nút màu vàng nằm ở VIE -->
+  <div id="langToggle" class="lang-switch-container is-vi" role="button" aria-label="Toggle Language">
     <div class="lang-slider"></div>
     <div class="lang-option">
       <svg viewBox="0 0 7410 3900"><rect width="7410" height="3900" fill="#b22234"/><path d="M0,450H7410m0,600H0m0,600H7410m0,600H0m0,600H7410m0,600H0" stroke="#fff" stroke-width="300"/><rect width="2964" height="2100" fill="#3c3b6e"/></svg>
