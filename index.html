@@ -37,7 +37,19 @@ h1{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(1.7rem,5vw,2
 .status{padding:40px 0;color:var(--muted)}
 h2{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.3rem;margin:8px 0 12px}
 section{margin-bottom:12px}
-dialog{position:relative;border:0;border-radius:18px;padding:22px;width:min(460px,calc(100% - 32px));max-height:90vh;overflow:auto;color:var(--ink);background:#fff}
+dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  border: 0;
+  border-radius: 18px;
+  padding: 22px;
+  width: min(460px, calc(100% - 32px));
+  max-height: 90vh;
+  overflow-y: auto;
+  color: var(--ink);
+  background: #fff;
+}
 dialog::backdrop{background:rgba(58,42,77,.55)}
 .close-btn{position:absolute;top:16px;right:16px;background:var(--line);border:none;border-radius:8px;padding:6px 14px;font-weight:700;color:var(--ink);cursor:pointer;font-family:inherit;font-size:.9rem}
 .close-btn:hover{background:var(--pink);color:var(--ink)}
