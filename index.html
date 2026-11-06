@@ -306,6 +306,7 @@ function openOrder(c) {
   $('#doneView').hidden = true;
   $('#send').disabled = false;
   $('#dlg').showModal();
+  $('#dlg').scrollTop = 0; // Thêm dòng này để luôn cuộn form lên đầu
 }
 
 $('#orderView').addEventListener('submit', async e => {
