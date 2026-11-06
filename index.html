@@ -13,10 +13,17 @@
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;line-height:1.5}
 header,main{max-width:980px;margin:0 auto;padding:0 20px}
 header{padding-top:40px}
-h1{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(2rem,6vw,3.2rem);line-height:1.05;margin:0}
+h1{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(1.7rem,5vw,2.7rem);line-height:1.05;margin:0}
 .sub{max-width:54ch;color:var(--muted);margin:10px 0 24px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;padding-bottom:48px}
-.card{position:relative;border:0;background:#fff;border-radius:14px;padding:8px;text-align:left;font:inherit;color:inherit;cursor:pointer;box-shadow:0 3px 0 var(--line);transition:transform .15s}
+
+.card{position:relative;border:0;border-radius:14px;padding:8px;text-align:left;font:inherit;color:inherit;cursor:pointer;box-shadow:0 3px 0 var(--line);transition:transform .15s}
+.card-default { background: #fff; } 
+.card-nhom-1 { background: #ffe6ef; } 
+.card-nhom-2 { background: #fff6d1; }
+.card-nhom-3 { background: #fdfdf5; }
+.card-nhom-4 { background: #dedfda; }
+
 .card:not(:disabled):hover{transform:translateY(-3px)}
 .card:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--pinkd);outline-offset:2px}
 .pic{aspect-ratio:63/88;border-radius:8px;overflow:hidden;background:var(--line)}
@@ -32,9 +39,16 @@ h1{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(2rem,6vw,3.2
 .status{padding:40px 0;color:var(--muted)}
 h2{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.3rem;margin:8px 0 12px}
 section{margin-bottom:12px}
-dialog{border:0;border-radius:18px;padding:22px;width:min(460px,calc(100% - 32px));max-height:90vh;overflow:auto;color:var(--ink);background:#fff}
+
+/* Sửa CSS cho Dialog để đặt nút Hủy góc phải */
+dialog{position:relative;border:0;border-radius:18px;padding:22px;width:min(460px,calc(100% - 32px));max-height:90vh;overflow:auto;color:var(--ink);background:#fff}
 dialog::backdrop{background:rgba(58,42,77,.55)}
-.sel{display:flex;gap:12px;align-items:center;margin-bottom:16px}
+
+/* CSS nút Hủy góc phải */
+.close-btn {position:absolute;top:16px;right:16px;background:var(--line);border:none;border-radius:8px;padding:6px 14px;font-weight:700;color:var(--ink);cursor:pointer;font-family:inherit;font-size:.9rem;transition:background 0.15s;}
+.close-btn:hover {background:var(--pink);color:var(--ink)}
+
+.sel{display:flex;gap:12px;align-items:center;margin-bottom:16px;padding-right:60px;}
 .sel img{width:56px;aspect-ratio:63/88;object-fit:cover;border-radius:6px}
 .sel b{display:block}
 label{display:block;font-weight:700;margin:12px 0 4px}
@@ -63,230 +77,3 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
 @media (prefers-reduced-motion:reduce){.card{transition:none}}
 </style>
 </head>
-<body>
-<header>
-  <h1>[evegoes studio] Pokémon custom case</h1>
-  <p class="sub">Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card chỉ có 1 chiếc.
-    - Đối với dòng iphone: Bạn chọn card và chọn phân loại iphone để xem tổng giá.
-    - Các dòng android giá sẽ cao hơn iphone từ 20-40k, ib shop để nhận báo giá ạ.</p>
-</header>
-<main>
-  <div id="status" class="status" role="status">Đang tải card…</div>
-  <div id="grid"></div>
-</main>
-
-<dialog id="dlg">
-  <form id="orderView">
-    <div class="sel"><img id="selImg" alt=""><div><b id="selName"></b></div></div>
-    <div class="notes" id="notes" hidden>
-      <details><summary>Dòng máy shop nhận và không nhận</summary>
-        <p id="notesYes"></p><p id="notesNo"></p>
-      </details>
-    </div>
-
-    <fieldset class="grp" style="border-top:0;margin-top:0;padding-top:0">
-      <legend>Chọn hãng máy</legend>
-      <div class="seg" role="radiogroup" aria-label="Hãng điện thoại">
-        <label><input type="radio" name="brand" value="iphone" checked> iPhone</label>
-        <label><input type="radio" name="brand" value="android"> Android</label>
-      </div>
-      <label for="phone">Tên dòng máy</label>
-      <input id="phone" required maxlength="80" placeholder="Ví dụ: iPhone 14 Pro Max">
-    </fieldset>
-
-    <fieldset class="grp">
-      <legend>Sticker nhân vật, tone màu bạn muốn (có thể ghi shop tự deco)</legend>
-      <div class="sticks" id="sticks" hidden>
-        <a id="stickLink" target="_blank" rel="noopener"><img id="stickImg" alt="Các sticker nhân vật shop có"></a>
-      </div>
-      <label for="sticker"></label>
-      <input id="sticker" maxlength="80" placeholder="Ví dụ: Hello Kitty, Kuromi, Usagi,..">
-    </fieldset>
-
-    <fieldset class="grp">
-      <legend>Thông tin giao hàng</legend>
-      <label for="name">Tên người nhận</label>
-      <input id="name" required maxlength="80" autocomplete="name">
-      <label for="tel">Số điện thoại</label>
-      <input id="tel" required maxlength="30" inputmode="tel" autocomplete="tel">
-      <label for="address">Địa chỉ nhận hàng (Địa chỉ hành chính mới)</label>
-      <textarea id="address" required maxlength="300" autocomplete="street-address" placeholder="Số nhà, đường, quận/huyện, tỉnh/thành."></textarea>
-    </fieldset>
-
-    <fieldset class="grp">
-      <legend>Instagram</legend>
-      <label for="ig">Tên Instagram và username của bạn</label>
-      <input id="ig" required maxlength="60" placeholder="@username" autocomplete="off">
-      <label for="note">Ghi chú thêm</label>
-      <textarea id="note" maxlength="500"></textarea>
-    </fieldset>
-
-    <div class="est" id="est" aria-live="polite"></div>
-    <p id="err" class="err" role="alert"></p>
-    <div class="row">
-      <button type="button" class="btn" id="close1">Huỷ</button>
-      <button type="submit" class="btn main" id="send">Gửi đơn</button>
-    </div>
-  </form>
-  <div id="doneView" hidden>
-    <b>Đã giữ card cho bạn!</b>
-    <div class="code" id="code"></div>
-    <p id="doneTotal"></p>
-    <p>Nhắn shop trên Instagram kèm mã đơn này để xác nhận nhé.</p>
-    <div class="row">
-      <button type="button" class="btn" id="copy">Sao chép mã</button>
-      <a class="btn main" id="igLink" target="_blank" rel="noopener">Nhắn shop</a>
-    </div>
-    <div class="row"><button type="button" class="btn" id="close2">Đóng</button></div>
-  </div>
-</dialog>
-
-<script>
-// ===== CHỈ CẦN SỬA 2 DÒNG NÀY =====
-const API_URL = 'https://script.google.com/macros/s/AKfycbwWZn0jRg-u0zjy1K8r-Ave-CQwVzwJ3fHSosQzZhyGpKWvjsmSCWgD4VjljvL0lHKM/exec';
-const IG_LINK = 'https://www.instagram.com/evegoes.studio/';
-// ==================================
-
-const $ = s => document.querySelector(s);
-let cards = [], current = null, cfg = { iphonePrice: 0, stickerPrice: 0, stickerImage: '', supported: '', unsupported: '', androidNote: '' };
-
-// Đổi link chia sẻ Drive thành link ảnh hiển thị được
-function imgUrl(u) {
-  const m = String(u || '').match(/\/d\/([\w-]+)|[?&]id=([\w-]+)/);
-  return m ? 'https://drive.google.com/thumbnail?id=' + (m[1] || m[2]) + '&sz=w600' : u;
-}
-function money(p) {
-  return (p === '' || isNaN(p)) ? String(p) : Number(p).toLocaleString('vi-VN') + 'đ';
-}
-
-async function load() {
-  $('#status').hidden = false;
-  $('#status').textContent = 'Đang tải card…';
-  try {
-    const res = await fetch(API_URL);
-    const data = await res.json();
-    cards = data.cards; cfg = data.config || cfg;
-    cards.sort((a, b) => a.sold - b.sold); // card còn hàng lên trước
-    render();
-    $('#status').hidden = true;
-  } catch (e) {
-    $('#status').textContent = 'Chưa load được ảnh card. Bạn thử tải lại trang nhé.';
-  }
-}
-
-function render() {
-  const root = $('#grid');
-  root.textContent = '';
-  const groups = [];
-  cards.forEach(c => {
-    let g = groups.find(x => x.name === c.group);
-    if (!g) groups.push(g = { name: c.group, items: [] });
-    g.items.push(c);
-  });
-  groups.forEach(g => {
-    const sec = document.createElement('section');
-    if (g.name) { const h = document.createElement('h2'); h.textContent = g.name; sec.appendChild(h); }
-    const grid = document.createElement('div'); grid.className = 'grid';
-    g.items.slice().sort((a, b) => a.sold - b.sold).forEach(c => {
-      const b = document.createElement('button');
-      b.className = 'card';
-      b.disabled = c.sold;
-      b.setAttribute('aria-label', c.name + (c.sold ? ', đã bán' : ''));
-      const pic = document.createElement('div'); pic.className = 'pic';
-      const img = document.createElement('img');
-      img.src = imgUrl(c.image); img.alt = ''; img.loading = 'lazy';
-      pic.appendChild(img);
-      const tag = document.createElement('span'); tag.className = 'tag'; tag.textContent = 'SOLD';
-      const meta = document.createElement('div'); meta.className = 'meta';
-      const n = document.createElement('span'); n.className = 'name'; n.textContent = c.name;
-      meta.appendChild(n);
-      b.append(pic, tag, meta);
-      b.addEventListener('click', () => openOrder(c));
-      grid.appendChild(b);
-    });
-    sec.appendChild(grid);
-    root.appendChild(sec);
-  });
-}
-
-function brand() { return document.querySelector('input[name=brand]:checked').value; }
-
-let quoteSeq = 0, hadSticker = false;
-async function estimate() {
-  const box = $('#est');
-  if (brand() === 'android') { box.textContent = cfg.androidNote || 'Giá ốp Android tùy từng dòng máy, shop sẽ báo tổng khi bạn nhắn tin.'; return; }
-  const seq = ++quoteSeq;
-  box.textContent = 'Đang tính giá…';
-  try {
-    const q = '?action=quote&id=' + encodeURIComponent(current.id) + '&brand=iphone&sticker=' + ($('#sticker').value.trim() ? 1 : 0);
-    const r = await (await fetch(API_URL + q)).json();
-    if (seq !== quoteSeq) return;
-    box.textContent = r.total == null ? 'Shop sẽ báo giá khi bạn nhắn tin.' : 'Tạm tính: ' + money(r.total);
-  } catch (e) {
-    if (seq === quoteSeq) box.textContent = 'Chưa tính được giá. Shop sẽ báo khi bạn nhắn tin.';
-  }
-}
-
-function openOrder(c) {
-  current = c;
-  $('#selImg').src = imgUrl(c.image);
-  $('#selName').textContent = c.name;
-  $('#err').textContent = '';
-  $('#notes').hidden = !(cfg.supported || cfg.unsupported);
-  $('#notesYes').textContent = cfg.supported ? 'Nhận: ' + cfg.supported : '';
-  $('#notesNo').textContent = cfg.unsupported ? 'Không nhận: ' + cfg.unsupported : '';
-  $('#sticks').hidden = !cfg.stickerImage;
-  if (cfg.stickerImage) { $('#stickImg').src = imgUrl(cfg.stickerImage).replace('w600', 'w1200'); $('#stickLink').href = imgUrl(cfg.stickerImage).replace('w600', 'w2000'); }
-  hadSticker = !!$('#sticker').value.trim();
-  estimate();
-  $('#orderView').hidden = false;
-  $('#doneView').hidden = true;
-  $('#send').disabled = false;
-  $('#dlg').showModal();
-}
-
-$('#orderView').addEventListener('submit', async e => {
-  e.preventDefault();
-  $('#send').disabled = true;
-  $('#err').textContent = '';
-  try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ id: current.id, ig: $('#ig').value, brand: brand(), phone: $('#phone').value, sticker: $('#sticker').value, name: $('#name').value, tel: $('#tel').value, address: $('#address').value, note: $('#note').value })
-    });
-    const data = await res.json();
-    if (data.ok) {
-      current.sold = true;
-      $('#code').textContent = data.orderId;
-      $('#doneTotal').textContent = data.total === null ? 'Giá ốp Android sẽ được shop báo khi nhắn tin.' : 'Tạm tính: ' + money(data.total);
-      $('#igLink').href = IG_LINK;
-      $('#orderView').hidden = true;
-      $('#doneView').hidden = false;
-      render();
-    } else if (data.error === 'sold') {
-      $('#err').textContent = 'Card này vừa có người đặt rồi. Bạn chọn card khác nhé.';
-      load();
-    } else {
-      $('#err').textContent = 'Chưa gửi được đơn. Bạn kiểm tra lại thông tin và thử lại nhé.';
-      $('#send').disabled = false;
-    }
-  } catch (err) {
-    $('#err').textContent = 'Mất kết nối. Bạn thử gửi lại nhé.';
-    $('#send').disabled = false;
-  }
-});
-
-document.querySelectorAll('input[name=brand]').forEach(r => r.addEventListener('change', estimate));
-$('#sticker').addEventListener('input', () => { const h = !!$('#sticker').value.trim(); if (current && h !== hadSticker) { hadSticker = h; estimate(); } });
-$('#copy').addEventListener('click', () => {
-  navigator.clipboard.writeText($('#code').textContent);
-  $('#copy').textContent = 'Đã sao chép';
-});
-['#close1', '#close2'].forEach(s => $(s).addEventListener('click', () => $('#dlg').close()));
-$('#dlg').addEventListener('close', () => { $('#copy').textContent = 'Sao chép mã'; });
-
-load();
-</script>
-</body>
-</html>
