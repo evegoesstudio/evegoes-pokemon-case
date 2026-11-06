@@ -23,7 +23,7 @@ h1{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(1.7rem,5vw,2
 .card-nhom-3{background:#fdfdf5}
 .card-nhom-4{background:#dedfda}
 .card:not(:disabled):hover{transform:translateY(-3px)}
-.card:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--pinkd);outline-offset:2px}
+.card:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .pic{aspect-ratio:63/88;border-radius:8px;overflow:hidden;background:var(--line)}
 .pic img{width:100%;height:100%;object-fit:cover;display:block}
 .meta{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:8px 4px 2px}
@@ -52,7 +52,7 @@ button.btn{flex:1;font:inherit;font-weight:700;padding:11px 14px;border-radius:1
 button.btn.main,a.btn.main{background:var(--ink);color:#fff}
 button.btn:hover,a.btn:hover{background:var(--pink);border-color:var(--pink);color:var(--ink)}
 a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px 14px;border-radius:10px;border:2px solid var(--ink)}
-.err{color:var(--pinkd);font-weight:700;min-height:1.4em;margin:10px 0 0}
+.err{color:#b3261e;font-weight:700;min-height:1.4em;margin:10px 0 0}
 .code{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.8rem;margin:4px 0}
 .grp{border:0;margin:18px 0 0;padding:14px 0 0;border-top:2px dashed var(--line)}
 .grp legend{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.05rem;padding:0 8px 0 0}
@@ -122,8 +122,7 @@ Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card ch�
 <div class="sticks" id="sticks" hidden>
 <a id="stickLink" target="_blank" rel="noopener"><img id="stickImg" alt="Các sticker nhân vật shop có"></a>
 </div>
-<label for="sticker"></label>
-<input id="sticker" required maxlength="80" placeholder="Ví dụ: Hello Kitty, Kuromi, Usagi,..">
+<input id="sticker" required maxlength="80" aria-label="Sticker nhân vật và tone màu bạn muốn" placeholder="Ví dụ: Hello Kitty, Kuromi, Usagi,..">
 </fieldset>
 
 <fieldset class="grp">
@@ -164,173 +163,176 @@ Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card ch�
 </dialog>
 
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbwWZn0jRg-u0zjy1K8r-Ave-CQwVzwJ3fHSosQzZhyGpKWvjsmSCWgD4VjljvL0lHKM/exec';
+// ===== CHỈ CẦN SỬA 2 DÒNG NÀY =====
+const API_URL = 'https://script.google.com/macros/s/AKfycby4k9nBqIPgVcBMQNYoGcDIe_C8YIST_jMJV-8GNPrWbODx9NZFZ6A_5oMTgRu7hBWdWw/exec';
 const IG_LINK = 'https://www.instagram.com/evegoes.studio/';
+// ==================================
 
 const $ = s => document.querySelector(s);
 let cards = [], current = null, cfg = { iphonePrice: 0, stickerPrice: 0, stickerImage: '', supported: '', unsupported: '', androidNote: '' };
 
-// Cải tiến hàm nhận diện link Google Drive để ảnh luôn load thành công
-function imgUrl(u) {
+// Đổi link chia sẻ Drive thành link ảnh hiển thị được
+function imgUrl(u, size) {
   if (!u) return '';
   const str = String(u).trim();
   const match = str.match(/(?:\/d\/|id=)([a-zA-Z0-9_-]+)/);
   if (match && match[1]) {
-    return 'https://drive.google.com/uc?export=view&id=' + match[1];
+    return 'https://drive.google.com/thumbnail?id=' + match[1] + '&sz=' + (size || 'w600');
   }
   return str;
 }
 
 function money(p) {
-return (p === '' || isNaN(p)) ? String(p) : Number(p).toLocaleString('vi-VN') + 'đ';
+  return (p === '' || isNaN(p)) ? String(p) : Number(p).toLocaleString('vi-VN') + 'đ';
 }
 
+// Số trong tên nhóm quyết định thứ tự và màu: "Nhóm 1" hiện trên cùng
 function getGroupPriority(groupName) {
-const name = String(groupName || '').trim().toLowerCase();
-if (name.indexOf('1') !== -1) return 1;
-if (name.indexOf('2') !== -1) return 2;
-if (name.indexOf('3') !== -1) return 3;
-if (name.indexOf('4') !== -1) return 4;
-return 99;
+  const name = String(groupName || '').trim().toLowerCase();
+  if (name.indexOf('1') !== -1) return 1;
+  if (name.indexOf('2') !== -1) return 2;
+  if (name.indexOf('3') !== -1) return 3;
+  if (name.indexOf('4') !== -1) return 4;
+  return 99;
 }
 
 function getGroupBgClass(groupName) {
-const p = getGroupPriority(groupName);
-if (p === 1) return 'card-nhom-1';
-if (p === 2) return 'card-nhom-2';
-if (p === 3) return 'card-nhom-3';
-if (p === 4) return 'card-nhom-4';
-return 'card-default';
+  const p = getGroupPriority(groupName);
+  if (p === 1) return 'card-nhom-1';
+  if (p === 2) return 'card-nhom-2';
+  if (p === 3) return 'card-nhom-3';
+  if (p === 4) return 'card-nhom-4';
+  return 'card-default';
 }
 
 async function load() {
-$('#status').hidden = false;
-$('#status').textContent = 'Đang tải card…';
-try {
-const res = await fetch(API_URL);
-const data = await res.json();
-cards = data.cards; cfg = data.config || cfg;
-cards.sort((a, b) => a.sold - b.sold);
-render();
-$('#status').hidden = true;
-} catch (e) {
-$('#status').textContent = 'Chưa load được ảnh card. Bạn thử tải lại trang nhé.';
-}
+  $('#status').hidden = false;
+  $('#status').textContent = 'Đang tải card…';
+  try {
+    const res = await fetch(API_URL);
+    const data = await res.json();
+    cards = data.cards; cfg = data.config || cfg;
+    cards.sort((a, b) => a.sold - b.sold);
+    render();
+    $('#status').hidden = true;
+  } catch (e) {
+    $('#status').textContent = 'Chưa load được ảnh card. Bạn thử tải lại trang nhé.';
+  }
 }
 
 function render() {
-const root = $('#grid');
-root.textContent = '';
-const groups = [];
-cards.forEach(c => {
-let g = groups.find(x => x.name === c.group);
-if (!g) groups.push(g = { name: c.group, items: [] });
-g.items.push(c);
-});
+  const root = $('#grid');
+  root.textContent = '';
+  const groups = [];
+  cards.forEach(c => {
+    let g = groups.find(x => x.name === c.group);
+    if (!g) groups.push(g = { name: c.group, items: [] });
+    g.items.push(c);
+  });
 
-groups.sort((a, b) => getGroupPriority(a.name) - getGroupPriority(b.name));
+  groups.sort((a, b) => getGroupPriority(a.name) - getGroupPriority(b.name));
 
-groups.forEach(g => {
-const sec = document.createElement('section');
-if (g.name) { const h = document.createElement('h2'); h.textContent = g.name; sec.appendChild(h); }
-const grid = document.createElement('div'); grid.className = 'grid';
-const bgClass = getGroupBgClass(g.name);
+  groups.forEach(g => {
+    const sec = document.createElement('section');
+    if (g.name) { const h = document.createElement('h2'); h.textContent = g.name; sec.appendChild(h); }
+    const grid = document.createElement('div'); grid.className = 'grid';
+    const bgClass = getGroupBgClass(g.name);
 
-g.items.slice().sort((a, b) => a.sold - b.sold).forEach(c => {
-const b = document.createElement('button');
-b.className = 'card ' + bgClass;
-b.disabled = c.sold;
-b.setAttribute('aria-label', c.name + (c.sold ? ', đã bán' : ''));
-const pic = document.createElement('div'); pic.className = 'pic';
-const img = document.createElement('img');
-img.src = imgUrl(c.image); img.alt = ''; img.loading = 'lazy';
-pic.appendChild(img);
-const tag = document.createElement('span'); tag.className = 'tag'; tag.textContent = 'SOLD';
-const meta = document.createElement('div'); meta.className = 'meta';
-const n = document.createElement('span'); n.className = 'name'; n.textContent = c.name;
-meta.appendChild(n);
-b.append(pic, tag, meta);
-b.addEventListener('click', () => openOrder(c));
-grid.appendChild(b);
-});
-sec.appendChild(grid);
-root.appendChild(sec);
-});
+    g.items.slice().sort((a, b) => a.sold - b.sold).forEach(c => {
+      const b = document.createElement('button');
+      b.className = 'card ' + bgClass;
+      b.disabled = c.sold;
+      b.setAttribute('aria-label', c.name + (c.sold ? ', đã bán' : ''));
+      const pic = document.createElement('div'); pic.className = 'pic';
+      const img = document.createElement('img');
+      img.src = imgUrl(c.image); img.alt = ''; img.loading = 'lazy';
+      pic.appendChild(img);
+      const tag = document.createElement('span'); tag.className = 'tag'; tag.textContent = 'SOLD';
+      const meta = document.createElement('div'); meta.className = 'meta';
+      const n = document.createElement('span'); n.className = 'name'; n.textContent = c.name;
+      meta.appendChild(n);
+      b.append(pic, tag, meta);
+      b.addEventListener('click', () => openOrder(c));
+      grid.appendChild(b);
+    });
+    sec.appendChild(grid);
+    root.appendChild(sec);
+  });
 }
 
 function brand() { return document.querySelector('input[name=brand]:checked').value; }
 
 let quoteSeq = 0, hadSticker = false;
 async function estimate() {
-const box = $('#est');
-if (brand() === 'android') { box.textContent = cfg.androidNote || 'Giá ốp Android tùy từng dòng máy, shop sẽ báo tổng khi bạn nhắn tin.'; return; }
-const seq = ++quoteSeq;
-box.textContent = 'Đang tính giá…';
-try {
-const q = '?action=quote&id=' + encodeURIComponent(current.id) + '&brand=iphone&sticker=' + ($('#sticker').value.trim() ? 1 : 0);
-const r = await (await fetch(API_URL + q)).json();
-if (seq !== quoteSeq) return;
-box.textContent = r.total == null ? 'Shop sẽ báo giá khi bạn nhắn tin.' : 'Tạm tính: ' + money(r.total);
-} catch (e) {
-if (seq === quoteSeq) box.textContent = 'Chưa tính được giá. Shop sẽ báo khi bạn nhắn tin.';
-}
+  const box = $('#est');
+  if (brand() === 'android') { box.textContent = cfg.androidNote || 'Giá ốp Android tùy từng dòng máy, shop sẽ báo tổng khi bạn nhắn tin.'; return; }
+  const seq = ++quoteSeq;
+  box.textContent = 'Đang tính giá…';
+  try {
+    const q = '?action=quote&id=' + encodeURIComponent(current.id) + '&brand=iphone&sticker=' + ($('#sticker').value.trim() ? 1 : 0);
+    const r = await (await fetch(API_URL + q)).json();
+    if (seq !== quoteSeq) return;
+    box.textContent = r.total == null ? 'Shop sẽ báo giá khi bạn nhắn tin.' : 'Tạm tính: ' + money(r.total);
+  } catch (e) {
+    if (seq === quoteSeq) box.textContent = 'Chưa tính được giá. Shop sẽ báo khi bạn nhắn tin.';
+  }
 }
 
 function openOrder(c) {
-current = c;
-$('#selImg').src = imgUrl(c.image);
-$('#selName').textContent = c.name;
-$('#err').textContent = '';
-$('#notes').hidden = !(cfg.supported || cfg.unsupported);
-$('#notesYes').textContent = cfg.supported ? 'Nhận: ' + cfg.supported : '';
-$('#notesNo').textContent = cfg.unsupported ? 'Không nhận: ' + cfg.unsupported : '';
-$('#sticks').hidden = !cfg.stickerImage;
-if (cfg.stickerImage) { $('#stickImg').src = imgUrl(cfg.stickerImage); $('#stickLink').href = imgUrl(cfg.stickerImage); }
-hadSticker = !!$('#sticker').value.trim();
-estimate();
-$('#orderView').hidden = false;
-$('#doneView').hidden = true;
-$('#send').disabled = false;
-$('#dlg').showModal();
+  current = c;
+  $('#selImg').src = imgUrl(c.image);
+  $('#selName').textContent = c.name;
+  $('#err').textContent = '';
+  $('#notes').hidden = !(cfg.supported || cfg.unsupported);
+  $('#notesYes').textContent = cfg.supported ? 'Nhận: ' + cfg.supported : '';
+  $('#notesNo').textContent = cfg.unsupported ? 'Không nhận: ' + cfg.unsupported : '';
+  $('#sticks').hidden = !cfg.stickerImage;
+  if (cfg.stickerImage) { $('#stickImg').src = imgUrl(cfg.stickerImage, 'w1200'); $('#stickLink').href = imgUrl(cfg.stickerImage, 'w2000'); }
+  hadSticker = !!$('#sticker').value.trim();
+  estimate();
+  $('#orderView').hidden = false;
+  $('#doneView').hidden = true;
+  $('#send').disabled = false;
+  $('#dlg').showModal();
 }
 
 $('#orderView').addEventListener('submit', async e => {
-e.preventDefault();
-$('#send').disabled = true;
-$('#err').textContent = '';
-try {
-const res = await fetch(API_URL, {
-method: 'POST',
-headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-body: JSON.stringify({ id: current.id, ig: $('#ig').value, brand: brand(), phone: $('#phone').value, sticker: $('#sticker').value, name: $('#name').value, tel: $('#tel').value, address: $('#address').value, note: $('#note').value })
-});
-const data = await res.json();
-if (data.ok) {
-current.sold = true;
-$('#code').textContent = data.orderId;
-$('#doneTotal').textContent = data.total === null ? 'Giá ốp Android sẽ được shop báo khi nhắn tin.' : 'Tạm tính: ' + money(data.total);
-$('#igLink').href = IG_LINK;
-$('#orderView').hidden = true;
-$('#doneView').hidden = false;
-render();
-} else if (data.error === 'sold') {
-$('#err').textContent = 'Card này vừa có người đặt rồi. Bạn chọn card khác nhé.';
-load();
-} else {
-$('#err').textContent = 'Chưa gửi được đơn. Bạn kiểm tra lại thông tin và thử lại nhé.';
-$('#send').disabled = false;
-}
-} catch (err) {
-$('#err').textContent = 'Mất kết nối. Bạn thử gửi lại nhé.';
-$('#send').disabled = false;
-}
+  e.preventDefault();
+  $('#send').disabled = true;
+  $('#err').textContent = '';
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ id: current.id, ig: $('#ig').value, brand: brand(), phone: $('#phone').value, sticker: $('#sticker').value, name: $('#name').value, tel: $('#tel').value, address: $('#address').value, note: $('#note').value })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      current.sold = true;
+      $('#code').textContent = data.orderId;
+      $('#doneTotal').textContent = data.total === null ? 'Giá ốp Android sẽ được shop báo khi nhắn tin.' : 'Tạm tính: ' + money(data.total);
+      $('#igLink').href = IG_LINK;
+      $('#orderView').hidden = true;
+      $('#doneView').hidden = false;
+      render();
+    } else if (data.error === 'sold') {
+      $('#err').textContent = 'Card này vừa có người đặt rồi. Bạn chọn card khác nhé.';
+      load();
+    } else {
+      $('#err').textContent = 'Chưa gửi được đơn. Bạn kiểm tra lại thông tin và thử lại nhé.';
+      $('#send').disabled = false;
+    }
+  } catch (err) {
+    $('#err').textContent = 'Mất kết nối. Bạn thử gửi lại nhé.';
+    $('#send').disabled = false;
+  }
 });
 
 document.querySelectorAll('input[name=brand]').forEach(r => r.addEventListener('change', estimate));
 $('#sticker').addEventListener('input', () => { const h = !!$('#sticker').value.trim(); if (current && h !== hadSticker) { hadSticker = h; estimate(); } });
 $('#copy').addEventListener('click', () => {
-navigator.clipboard.writeText($('#code').textContent);
-$('#copy').textContent = 'Đã sao chép';
+  navigator.clipboard.writeText($('#code').textContent);
+  $('#copy').textContent = 'Đã sao chép';
 });
 ['#close1', '#close2'].forEach(s => $(s).addEventListener('click', () => $('#dlg').close()));
 $('#dlg').addEventListener('close', () => { $('#copy').textContent = 'Sao chép mã'; });
