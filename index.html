@@ -10,8 +10,6 @@
 <style>
 :root{--bg:#c3deff;--ink:#050506;--pink:#aabee5;--pinkd:#aabee5;--line:#e7f2ff;--muted:#292929}
 *{box-sizing:border-box}
-
-/* --- ĐÃ THÊM BACKGROUND CHẤM BI VÀO BODY --- */
 body {
   margin: 0;
   color: var(--ink);
@@ -22,10 +20,8 @@ body {
     radial-gradient(rgba(255, 255, 255, 0.4) 15%, transparent 16%),
     radial-gradient(rgba(255, 255, 255, 0.4) 15%, transparent 16%);
   background-size: 60px 60px;
-  background-position: 0 0, 30px 30px; /* Tạo xếp so le */
+  background-position: 0 0, 30px 30px;
 }
-/* ------------------------------------------- */
-
 header,main{max-width:980px;margin:0 auto;padding:0 20px}
 
 header {
@@ -58,13 +54,23 @@ h1 {
 .sub { color:var(--muted); margin: 0 0 24px }
 .header-notes { margin-bottom: 32px; }
 
+/* Định dạng tiêu đề gập/mở */
 .header-notes summary {
   cursor: pointer;
+  color: var(--ink);
+}
+.header-notes .note-title {
   font-weight: 800; 
   font-size: 1.2rem; 
   text-transform: uppercase; 
   text-decoration: underline; 
-  color: var(--ink);
+}
+.header-notes .exp-title {
+  font-weight: 800; 
+  font-size: 1.2rem; 
+}
+.header-notes details + details {
+  margin-top: 14px;
 }
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;padding-bottom:48px}
@@ -193,14 +199,24 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
       </div>
 
       <div class="notes header-notes">
+        <!-- Mục 1: Lưu ý -->
         <details>
-          <summary>Lưu ý (Đọc kỹ)</summary>
+          <summary class="note-title">Lưu ý (Đọc kỹ)</summary>
           <p>
           ★ ★ ★ Shop sử dụng ốp lưng cứng cho tất cả dòng, mặt lưng không ố vàng, ốp được phủ resin, sau đó là lớp chống rít khi sử dụng để trải nghiệm cầm nắm được tốt hơn.<br><br>
           ♥ evegoes sẽ từ chối những đơn có yêu cầu quá cao/ quá chi tiết.<br>
           ♥ Thời gian trả đơn và gửi hàng: 1-2 tuần (thời gian gửi hàng có thể sớm hơn)<br>
           ♥ Shop sẽ trả đơn theo thứ tự điền form, sau khi hoàn thành, ảnh/video sẽ được gửi cho cậu.<br>
           ♥ Khi chưa đến hạn trả đơn, shop sẽ không trả lời các tin nhắn hối hàng.
+          </p>
+        </details>
+        
+        <!-- Mục 2: Trải nghiệm -->
+        <details>
+          <summary class="exp-title">Trải nghiệm ♥</summary>
+          <p>
+          Khác với việc chỉ đặt card vào ốp nhựa trong suốt thông thường, chế tác ốp custom là một quá trình cá nhân hóa từng chi tiết. Lá bài bạn chọn sẽ trở thành tâm điểm, được mix-match cùng các phụ kiện trang trí, hiệu ứng và màu sắc theo đúng gu thẩm mỹ của bạn.<br><br>
+          Bằng cách sử dụng lớp phủ resin, bề mặt ốp được liên kết thành một tổng thể nguyên khối, giúp cố định an toàn lá bài và tạo sự liền mạch cho toàn bộ thiết kế. Thứ bạn nhận được không đơn thuần là một chiếc ốp bảo vệ, mà là một món phụ kiện độc bản mang đậm dấu ấn cá nhân.
           </p>
         </details>
       </div>
