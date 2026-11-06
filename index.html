@@ -29,7 +29,31 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center; 
+  position: relative;
 }
+
+/* Nút chuyển đổi ngôn ngữ góc trên cùng bên phải */
+.lang-switch {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--ink);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+}
+.lang-switch:hover {
+  background: var(--ink);
+  color: #fff;
+}
+
 .header-content {
   width: 100%;
   max-width: 600px; 
@@ -54,7 +78,6 @@ h1 {
 .sub { color:var(--muted); margin: 0 0 24px }
 .header-notes { margin-bottom: 32px; }
 
-/* Định dạng tiêu đề gập/mở */
 .header-notes summary {
   cursor: pointer;
   color: var(--ink);
@@ -162,7 +185,7 @@ dialog::backdrop { background:rgba(58,42,77,.65) }
 }
 
 label{display:block;font-weight:700;margin:12px 0 4px}
-input,textarea{width:100%;font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;color:var(--ink)}
+input,textarea,select{width:100%;font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;color:var(--ink);background:#fff}
 textarea{min-height:70px;resize:vertical}
 .row{display:flex;gap:10px;margin-top:18px}
 button.btn{flex:1;font:inherit;font-weight:700;padding:11px 14px;border-radius:10px;border:2px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer}
@@ -189,34 +212,33 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
 </head>
 <body>
 <header>
+  <button id="langToggle" class="lang-switch" type="button">ENG / VIỆT</button>
   <div class="header-content">
-    <h1>[evegoes studio]<br>Pokémon custom case</h1>
+    <h1 id="t-title">[evegoes studio]<br>Pokémon custom case</h1>
     <div class="sub">
-      <div class="info-box">
+      <div class="info-box" id="t-infobox">
         Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card chỉ có 1 chiếc, tất cả là offical card.<br>
         - Đối với dòng iphone: Bạn chọn card và chọn phân loại iphone để xem tổng giá.<br>
         - Các dòng android giá sẽ cao hơn iphone từ 20-40k, nhắn cho shop để nhận báo giá ạ.
       </div>
 
       <div class="notes header-notes">
-        <!-- Mục 1: Lưu ý -->
         <details>
-          <summary class="note-title">Lưu ý (Đọc kỹ)</summary>
-          <p>
+          <summary class="note-title" id="t-noteTitle">Lưu ý (Đọc kỹ)</summary>
+          <p id="t-noteContent">
           ★ ★ ★ Shop sử dụng ốp lưng cứng cho tất cả dòng, mặt lưng không ố vàng, ốp được phủ resin, sau đó là lớp chống rít khi sử dụng để trải nghiệm cầm nắm được tốt hơn.<br><br>
           ♥ evegoes sẽ từ chối những đơn có yêu cầu quá cao/ quá chi tiết.<br>
           ♥ Thời gian trả đơn và gửi hàng: 1-2 tuần (thời gian gửi hàng có thể sớm hơn)<br>
-          ♥ Shop sẽ trả đơn theo thứ tự đặt đơn, sau khi hoàn thành, ảnh/video sẽ được gửi cho bạn.<br>
+          ♥ Shop sẽ trả đơn theo thứ tự điền form, sau khi hoàn thành, ảnh/video sẽ được gửi cho cậu.<br>
           ♥ Khi chưa đến hạn trả đơn, shop sẽ không trả lời các tin nhắn hối hàng.
           </p>
         </details>
         
-        <!-- Mục 2: Trải nghiệm -->
         <details>
-          <summary class="exp-title">Trải nghiệm ♥</summary>
-          <p>
-          Khác với việc chỉ đặt card vào ốp nhựa trong suốt thông thường, ốp custom là một quá trình cá nhân hóa từng chi tiết. Lá bài bạn chọn sẽ được mix-match cùng sticker, charm và màu sắc theo đúng gu, sự lựa chọn của bạn.<br><br>
-          Ốp được phủ resin, bề mặt ốp được liên kết tổng thể giúp cố định card chắc chắn và tránh làm xước máy khi nhét card vào ốp thông thường.
+          <summary class="exp-title" id="t-expTitle">Trải nghiệm ♥</summary>
+          <p id="t-expContent">
+          Khác với việc chỉ đặt card vào ốp nhựa trong suốt thông thường, chế tác ốp custom là một quá trình cá nhân hóa từng chi tiết. Lá bài bạn chọn sẽ trở thành tâm điểm, được mix-match cùng các phụ kiện trang trí, hiệu ứng và màu sắc theo đúng gu thẩm mỹ của bạn.<br><br>
+          Bằng cách sử dụng lớp phủ resin, bề mặt ốp được liên kết thành một tổng thể nguyên khối, giúp cố định an toàn lá bài và tạo sự liền mạch cho toàn bộ thiết kế. Thứ bạn nhận được không đơn thuần là một chiếc ốp bảo vệ, mà là một món phụ kiện độc bản mang đậm dấu ấn cá nhân.
           </p>
         </details>
       </div>
@@ -236,48 +258,60 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
   <div class="sel"><img id="selImg" alt=""><div><b id="selName"></b></div></div>
 
   <div class="notes" id="notes" hidden>
-  <details><summary>Dòng máy shop nhận và không nhận</summary>
+  <details><summary id="t-modelSummary">Dòng máy shop nhận và không nhận</summary>
   <p id="notesYes"></p><p id="notesNo"></p>
   </details>
   </div>
 
   <fieldset class="grp" style="border-top:0;margin-top:0;padding-top:0">
-  <legend>Instagram</legend>
-  <label for="ig">Tên Instagram và username của bạn</label>
+  <legend id="t-legIg">Instagram</legend>
+  <label for="ig" id="t-lblIg">Tên Instagram và username của bạn</label>
   <input id="ig" required maxlength="60" placeholder="@username" autocomplete="off">
   </fieldset>
 
   <fieldset class="grp">
-  <legend>Chọn hãng máy</legend>
+  <legend id="t-legBrand">Chọn hãng máy</legend>
   <div class="seg" role="radiogroup" aria-label="Hãng điện thoại">
-  <label><input type="radio" name="brand" value="iphone" checked> iPhone</label>
-  <label><input type="radio" name="brand" value="android"> Android</label>
+  <label><input type="radio" name="brand" value="iphone" checked> <span id="t-iphone">iPhone</span></label>
+  <label><input type="radio" name="brand" value="android"> <span id="t-android">Android</span></label>
   </div>
-  <label for="phone">Tên dòng máy</label>
+  <label for="phone" id="t-lblPhone">Tên dòng máy</label>
   <input id="phone" required maxlength="80" placeholder="Ví dụ: iPhone 14 Pro Max">
   </fieldset>
 
-  <fieldset class="grp">
-  <legend>Sticker nhân vật (max 5), tone màu bạn muốn (có thể ghi shop tự deco)</legend>
-  <div class="sticks" id="sticks" hidden>
-  <a id="stickLink" target="_blank" rel="noopener"><img id="stickImg" alt="Các sticker nhân vật shop có"></a>
-  </div>
-  <input id="sticker" required maxlength="80" aria-label="Sticker nhân vật và tone màu bạn muốn" placeholder="Ví dụ: Hello Kitty, Kuromi, Usagi,..">
+  <!-- PHẦN CHỌN KHU VỰC SHIP CHO KHÁCH QUỐC TẾ (CHỈ HIỆN KHI Ở BẢN EN) -->
+  <fieldset class="grp" id="shipSection" hidden>
+  <legend id="t-legShip">International Shipping</legend>
+  <label for="shipRegion" id="t-lblShip">Select Region</label>
+  <select id="shipRegion">
+    <option value="none">-- Select Shipping Region --</option>
+    <option value="Asia (+$10)">Asia (+$10)</option>
+    <option value="Australia / US (+$15)">Australia / US (+$15)</option>
+    <option value="Europe / EU (+$37)">Europe / EU (+$37)</option>
+  </select>
   </fieldset>
 
   <fieldset class="grp">
-  <legend>Thông tin giao hàng</legend>
-  <label for="name">Tên người nhận</label>
+  <legend id="t-legSticker">Sticker nhân vật, tone màu bạn muốn (có thể ghi shop tự deco)</legend>
+  <div class="sticks" id="sticks" hidden>
+  <a id="stickLink" target="_blank" rel="noopener"><img id="stickImg" alt="Các sticker nhân vật shop có"></a>
+  </div>
+  <input id="sticker" required maxlength="80" aria-label="Sticker" placeholder="Ví dụ: Hello Kitty, Kuromi, Usagi,..">
+  </fieldset>
+
+  <fieldset class="grp">
+  <legend id="t-legShippingInfo">Thông tin giao hàng</legend>
+  <label for="name" id="t-lblName">Tên người nhận</label>
   <input id="name" required maxlength="80" autocomplete="name">
-  <label for="tel">Số điện thoại</label>
+  <label for="tel" id="t-lblTel">Số điện thoại</label>
   <input id="tel" required maxlength="30" inputmode="tel" autocomplete="tel">
-  <label for="address">Địa chỉ nhận hàng (Địa chỉ hành chính mới)</label>
+  <label for="address" id="t-lblAddress">Địa chỉ nhận hàng (Địa chỉ hành chính mới)</label>
   <textarea id="address" required maxlength="300" autocomplete="street-address" placeholder="Số nhà, đường, quận/huyện, tỉnh/thành."></textarea>
   </fieldset>
 
   <fieldset class="grp">
-  <legend>Ghi chú</legend>
-  <label for="note">Ghi chú thêm (Không bắt buộc)</label>
+  <legend id="t-legNote">Ghi chú</legend>
+  <label for="note" id="t-lblNote">Ghi chú thêm (Không bắt buộc)</label>
   <textarea id="note" maxlength="500"></textarea>
   </fieldset>
 
@@ -290,10 +324,10 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
   </form>
 
   <div id="doneView" hidden>
-  <b>Đã giữ card cho bạn!</b>
+  <b id="t-doneTitle">Đã giữ card cho bạn!</b>
   <div class="code" id="code"></div>
   <p id="doneTotal"></p>
-  <p>Nhắn shop trên Instagram kèm mã đơn này để xác nhận nhé.</p>
+  <p id="t-doneDesc">Nhắn shop trên Instagram kèm mã đơn này để xác nhận nhé.</p>
   <div class="row">
   <button type="button" class="btn" id="copy">Sao chép mã</button>
   <a class="btn main" id="igLink" target="_blank" rel="noopener">Nhắn shop</a>
@@ -308,7 +342,172 @@ const API_URL = 'https://script.google.com/macros/s/AKfycby4k9nBqIPgVcBMQNYoGcDI
 const IG_LINK = 'https://www.instagram.com/evegoes.studio/';
 
 const $ = s => document.querySelector(s);
-let cards = [], current = null, cfg = { iphonePrice: 0, stickerPrice: 0, stickerImage: '', supported: '', unsupported: '', androidNote: '' };
+let cards = [], current = null, currentLang = 'vi';
+let cfg = { iphonePrice: 0, stickerPrice: 0, stickerImage: '', supported: '', unsupported: '', androidNote: '' };
+
+// Bảng giá USD cố định theo Nhóm cho khách quốc tế
+function getUsdPriceByGroup(groupName) {
+  const name = String(groupName || '').trim().toLowerCase();
+  if (name.indexOf('1') !== -1) return 30;
+  if (name.indexOf('2') !== -1) return 27;
+  if (name.indexOf('3') !== -1) return 24;
+  if (name.indexOf('4') !== -1) return 20;
+  return 20; // Mặc định nếu không tìm thấy
+}
+
+function getShippingFee(str) {
+  if (str.includes('+$10')) return 10;
+  if (str.includes('+$15')) return 15;
+  if (str.includes('+$37')) return 37;
+  return 0;
+}
+
+// Từ điển đa ngôn ngữ cho toàn bộ giao diện
+const langData = {
+  vi: {
+    toggleBtn: "ENGLISH",
+    title: "[evegoes studio]<br>Pokémon custom case",
+    infobox: "Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card chỉ có 1 chiếc, tất cả là offical card.<br>- Đối với dòng iphone: Bạn chọn card và chọn phân loại iphone để xem tổng giá.<br>- Các dòng android giá sẽ cao hơn iphone từ 20-40k, nhắn cho shop để nhận báo giá ạ.",
+    noteTitle: "Lưu ý (Đọc kỹ)",
+    noteContent: "★ ★ ★ Shop sử dụng ốp lưng cứng cho tất cả dòng, mặt lưng không ố vàng, ốp được phủ resin, sau đó là lớp chống rít khi sử dụng để trải nghiệm cầm nắm được tốt hơn.<br><br>♥ evegoes sẽ từ chối những đơn có yêu cầu quá cao/ quá chi tiết.<br>♥ Thời gian trả đơn và gửi hàng: 1-2 tuần (thời gian gửi hàng có thể sớm hơn)<br>♥ Shop sẽ trả đơn theo thứ tự điền form, sau khi hoàn thành, ảnh/video sẽ được gửi cho cậu.<br>♥ Khi chưa đến hạn trả đơn, shop sẽ không trả lời các tin nhắn hối hàng.",
+    expTitle: "Trải nghiệm ♥",
+    expContent: "Khác với việc chỉ đặt card vào ốp nhựa trong suốt thông thường, chế tác ốp custom là một quá trình cá nhân hóa từng chi tiết. Lá bài bạn chọn sẽ trở thành tâm điểm, được mix-match cùng các phụ kiện trang trí, hiệu ứng và màu sắc theo đúng gu thẩm mỹ của bạn.<br><br>Bằng cách sử dụng lớp phủ resin, bề mặt ốp được liên kết thành một tổng thể nguyên khối, giúp cố định an toàn lá bài và tạo sự liền mạch cho toàn bộ thiết kế. Thứ bạn nhận được không đơn thuần là một chiếc ốp bảo vệ, mà là một món phụ kiện độc bản mang đậm dấu ấn cá nhân.",
+    statusLoad: "Đang tải card…",
+    statusErr: "Chưa load được ảnh card. Bạn thử tải lại trang nhé.",
+    modelSummary: "Dòng máy shop nhận và không nhận",
+    legIg: "Instagram",
+    lblIg: "Tên Instagram và username của bạn",
+    legBrand: "Chọn hãng máy",
+    iphone: "iPhone",
+    android: "Android",
+    lblPhone: "Tên dòng máy",
+    phPhone: "Ví dụ: iPhone 14 Pro Max",
+    legSticker: "Sticker nhân vật, tone màu bạn muốn (có thể ghi shop tự deco)",
+    phSticker: "Ví dụ: Hello Kitty, Kuromi, Usagi,..",
+    legShippingInfo: "Thông tin giao hàng",
+    lblName: "Tên người nhận",
+    lblTel: "Số điện thoại",
+    lblAddress: "Địa chỉ nhận hàng (Địa chỉ hành chính mới)",
+    phAddress: "Số nhà, đường, quận/huyện, tỉnh/thành.",
+    legNote: "Ghi chú",
+    lblNote: "Ghi chú thêm (Không bắt buộc)",
+    sendBtn: "Gửi đơn",
+    doneTitle: "Đã giữ card cho bạn!",
+    doneDesc: "Nhắn shop trên Instagram kèm mã đơn này để xác nhận nhé.",
+    copyBtn: "Sao chép mã",
+    copiedBtn: "Đã sao chép",
+    igBtn: "Nhắn shop",
+    closeBtn: "Đóng",
+    cancelBtn: "Huỷ",
+    estAndroid: "Giá ốp Android tùy từng dòng máy, shop sẽ báo tổng khi bạn nhắn tin.",
+    estQuote: "Đang tính giá…",
+    estErr: "Chưa tính được giá. Shop sẽ báo khi bạn nhắn tin.",
+    errSold: "Card này vừa có người đặt rồi. Bạn chọn card khác nhé.",
+    errFail: "Chưa gửi được đơn. Bạn kiểm tra lại thông tin và thử lại nhé.",
+    errConn: "Mất kết nối. Bạn thử gửi lại nhé.",
+    soldTag: "SOLD",
+    soldCardLabel: ", đã bán"
+  },
+  en: {
+    toggleBtn: "TIẾNG VIỆT",
+    title: "[evegoes studio]<br>Pokémon custom case",
+    infobox: "Cards are sorted by price group from high to low. Each card is unique (1 available), and all are official cards.<br>- For iPhone: Select a card and choose iPhone to see the total price.<br>- For Android, prices are $1–$2 higher than iPhone; please message the shop for a quote.<br><br>★ International shipping is available via PayPal/Remitly.",
+    noteTitle: "Important Notes (Please read)",
+    noteContent: "★ ★ ★ We use hard phone cases for all models. The back won't turn yellow, coated with resin, followed by an anti-slip grip layer for better handling.<br><br>♥ evegoes declines orders with excessively complex or detailed requirements.<br>♥ Processing & shipping time: 1–2 weeks (may be sooner).<br>♥ Orders are processed in the order forms are submitted. Photos/videos will be sent upon completion.<br>♥ Please do not message for updates before the deadline.",
+    expTitle: "Experience ♥",
+    expContent: "Unlike simply placing a card into a clear plastic case, crafting a custom case is a detailed personalization process. Your chosen card becomes the focal point, accented with stickers, charms, glitter, and effects tailored to your aesthetic.<br><br>Using a resin topcoat, the surface is sealed into a solid piece, securely fixing the card and creating a seamless design. You aren't just getting a protective case, but a unique, personalized accessory.",
+    statusLoad: "Loading cards…",
+    statusErr: "Failed to load cards. Please refresh the page.",
+    modelSummary: "Supported / Unsupported phone models",
+    legIg: "Instagram",
+    lblIg: "Your Instagram name & username",
+    legBrand: "Phone Brand",
+    iphone: "iPhone",
+    android: "Android",
+    lblPhone: "Phone Model Name",
+    phPhone: "Example: iPhone 14 Pro Max",
+    legShipTitle: "International Shipping",
+    legShipLbl: "Select Region",
+    legSticker: "Character stickers & color tone (or leave for shop to deco)",
+    phSticker: "Example: Hello Kitty, Kuromi, Usagi,..",
+    legShippingInfo: "Shipping Information",
+    lblName: "Recipient Name",
+    lblTel: "Phone Number",
+    lblAddress: "Shipping Address (Street, City, Country, ZIP)",
+    phAddress: "House number, street, city, country, postal code.",
+    legNote: "Notes",
+    lblNote: "Additional notes (Optional)",
+    sendBtn: "Submit Order",
+    doneTitle: "Card reserved for you!",
+    doneDesc: "Message us on Instagram with this order code to confirm.",
+    copyBtn: "Copy Code",
+    copiedBtn: "Copied",
+    igBtn: "Message Shop",
+    closeBtn: "Close",
+    cancelBtn: "Cancel",
+    estAndroid: "Android case prices vary by model; the shop will quote you via message.",
+    estQuote: "Calculating price…",
+    estErr: "Could not calculate price. The shop will quote you via message.",
+    errSold: "This card was just ordered by someone else. Please choose another one.",
+    errFail: "Could not submit order. Please check your info and try again.",
+    errConn: "Connection lost. Please try submitting again.",
+    soldTag: "SOLD",
+    soldCardLabel: ", sold"
+  }
+};
+
+function switchLanguage() {
+  currentLang = (currentLang === 'vi') ? 'en' : 'vi';
+  const t = langData[currentLang];
+
+  $('#langToggle').textContent = t.toggleBtn;
+  $('#t-title').innerHTML = t.title;
+  $('#t-infobox').innerHTML = t.infobox;
+  $('#t-noteTitle').textContent = t.noteTitle;
+  $('#t-noteContent').innerHTML = t.noteContent;
+  $('#t-expTitle').textContent = t.expTitle;
+  $('#t-expContent').innerHTML = t.expContent;
+  $('#status').textContent = t.statusLoad;
+  $('#t-modelSummary').textContent = t.modelSummary;
+  $('#t-legIg').textContent = t.legIg;
+  $('#t-lblIg').textContent = t.lblIg;
+  $('#t-legBrand').textContent = t.legBrand;
+  $('#t-iphone').textContent = t.iphone;
+  $('#t-android').textContent = t.android;
+  $('#t-lblPhone').textContent = t.lblPhone;
+  $('#phone').placeholder = t.phPhone;
+  $('#t-legSticker').textContent = t.legSticker;
+  $('#sticker').placeholder = t.phSticker;
+  $('#t-legShippingInfo').textContent = t.legShippingInfo;
+  $('#t-lblName').textContent = t.lblName;
+  $('#t-lblTel').textContent = t.lblTel;
+  $('#t-lblAddress').textContent = t.lblAddress;
+  $('#address').placeholder = t.phAddress;
+  $('#t-legNote').textContent = t.legNote;
+  $('#t-lblNote').textContent = t.lblNote;
+  $('#send').textContent = t.sendBtn;
+  $('#t-doneTitle').textContent = t.doneTitle;
+  $('#t-doneDesc').textContent = t.doneDesc;
+  $('#copy').textContent = t.copyBtn;
+  $('#igLink').textContent = t.igBtn;
+  $('#close2').textContent = t.closeBtn;
+  $('#close1').textContent = t.cancelBtn;
+
+  // Ẩn hiện phần chọn ship quốc tế theo ngôn ngữ
+  if (currentLang === 'en') {
+    $('#shipSection').hidden = false;
+  } else {
+    $('#shipSection').hidden = true;
+    $('#shipRegion').value = 'none';
+  }
+
+  render();
+  if (current && $('#dlg').open) {
+    estimate();
+  }
+}
+
+$('#langToggle').addEventListener('click', switchLanguage);
 
 function imgUrl(u, size) {
   if (!u) return '';
@@ -321,6 +520,9 @@ function imgUrl(u, size) {
 }
 
 function money(p) {
+  if (currentLang === 'en') {
+    return '$' + p;
+  }
   return (p === '' || isNaN(p)) ? String(p) : Number(p).toLocaleString('vi-VN') + 'đ';
 }
 
@@ -343,8 +545,9 @@ function getGroupBgClass(groupName) {
 }
 
 async function load() {
+  const t = langData[currentLang];
   $('#status').hidden = false;
-  $('#status').textContent = 'Đang tải card…';
+  $('#status').textContent = t.statusLoad;
   try {
     const res = await fetch(API_URL);
     const data = await res.json();
@@ -353,11 +556,12 @@ async function load() {
     render();
     $('#status').hidden = true;
   } catch (e) {
-    $('#status').textContent = 'Chưa load được ảnh card. Bạn thử tải lại trang nhé.';
+    $('#status').textContent = t.statusErr;
   }
 }
 
 function render() {
+  const t = langData[currentLang];
   const root = $('#grid');
   root.textContent = '';
   const groups = [];
@@ -379,12 +583,12 @@ function render() {
       const b = document.createElement('button');
       b.className = 'card ' + bgClass;
       b.disabled = c.sold;
-      b.setAttribute('aria-label', c.name + (c.sold ? ', đã bán' : ''));
+      b.setAttribute('aria-label', c.name + (c.sold ? t.soldCardLabel : ''));
       const pic = document.createElement('div'); pic.className = 'pic';
       const img = document.createElement('img');
       img.src = imgUrl(c.image); img.alt = ''; img.loading = 'lazy';
       pic.appendChild(img);
-      const tag = document.createElement('span'); tag.className = 'tag'; tag.textContent = 'SOLD';
+      const tag = document.createElement('span'); tag.className = 'tag'; tag.textContent = t.soldTag;
       const meta = document.createElement('div'); meta.className = 'meta';
       const n = document.createElement('span'); n.className = 'name'; n.textContent = c.name;
       meta.appendChild(n);
@@ -402,16 +606,37 @@ function brand() { return document.querySelector('input[name=brand]:checked').va
 let quoteSeq = 0, hadSticker = false;
 async function estimate() {
   const box = $('#est');
-  if (brand() === 'android') { box.textContent = cfg.androidNote || 'Giá ốp Android tùy từng dòng máy, shop sẽ báo tổng khi bạn nhắn tin.'; return; }
+  const t = langData[currentLang];
+  if (brand() === 'android') { 
+    box.textContent = cfg.androidNote || t.estAndroid; 
+    return; 
+  }
+  
+  if (currentLang === 'en') {
+    // Tính giá USD độc lập theo Nhóm thẻ cho khách quốc tế
+    let baseUsd = getUsdPriceByGroup(current.group);
+    // Kiểm tra có sticker hay không (nếu logic yêu cầu, nhưng ở đây dùng giá cố định nhóm)
+    let shipVal = getShippingFee($('#shipRegion').value);
+    let totalUsd = baseUsd + shipVal;
+    
+    if (shipVal > 0) {
+      box.textContent = `Estimated Total: $${totalUsd} (Base: $${baseUsd} + Shipping: $${shipVal})`;
+    } else {
+      box.textContent = `Estimated Total: $${baseUsd} (Shipping region not selected)`;
+    }
+    return;
+  }
+
+  // Luồng Tiếng Việt cũ giữ nguyên 100%
   const seq = ++quoteSeq;
-  box.textContent = 'Đang tính giá…';
+  box.textContent = t.estQuote;
   try {
     const q = '?action=quote&id=' + encodeURIComponent(current.id) + '&brand=iphone&sticker=' + ($('#sticker').value.trim() ? 1 : 0);
     const r = await (await fetch(API_URL + q)).json();
     if (seq !== quoteSeq) return;
     box.textContent = r.total == null ? 'Shop sẽ báo giá khi bạn nhắn tin.' : 'Tạm tính: ' + money(r.total);
   } catch (e) {
-    if (seq === quoteSeq) box.textContent = 'Chưa tính được giá. Shop sẽ báo khi bạn nhắn tin.';
+    if (seq === quoteSeq) box.textContent = t.estErr;
   }
 }
 
@@ -426,6 +651,11 @@ function openOrder(c) {
   $('#sticks').hidden = !cfg.stickerImage;
   if (cfg.stickerImage) { $('#stickImg').src = imgUrl(cfg.stickerImage, 'w1200'); $('#stickLink').href = imgUrl(cfg.stickerImage, 'w2000'); }
   hadSticker = !!$('#sticker').value.trim();
+  
+  if(currentLang === 'en') {
+    $('#shipRegion').value = 'none';
+  }
+  
   estimate();
   $('#orderView').hidden = false;
   $('#doneView').hidden = true;
@@ -438,42 +668,79 @@ $('#orderView').addEventListener('submit', async e => {
   e.preventDefault();
   $('#send').disabled = true;
   $('#err').textContent = '';
+  const t = langData[currentLang];
+
+  // Gộp thông tin ship quốc tế vào ghi chú nếu ở bản EN
+  let finalNote = $('#note').value;
+  if (currentLang === 'en') {
+    const shipSel = $('#shipRegion').value;
+    const baseUsd = getUsdPriceByGroup(current.group);
+    const shipFee = getShippingFee(shipSel);
+    const totalUsd = baseUsd + shipFee;
+    const shippingTag = `[EN Order | Region: ${shipSel} | Base: $${baseUsd} | Ship: $${shipFee} | Total: $${totalUsd}]`;
+    finalNote = finalNote ? `${shippingTag} - ${finalNote}` : shippingTag;
+  }
+
   try {
     const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ id: current.id, ig: $('#ig').value, brand: brand(), phone: $('#phone').value, sticker: $('#sticker').value, name: $('#name').value, tel: $('#tel').value, address: $('#address').value, note: $('#note').value })
+      body: JSON.stringify({ 
+        id: current.id, 
+        ig: $('#ig').value, 
+        brand: brand(), 
+        phone: $('#phone').value, 
+        sticker: $('#sticker').value, 
+        name: $('#name').value, 
+        tel: $('#tel').value, 
+        address: $('#address').value, 
+        note: finalNote 
+      })
     });
     const data = await res.json();
     if (data.ok) {
       current.sold = true;
       $('#code').textContent = data.orderId;
-      $('#doneTotal').textContent = data.total === null ? 'Giá ốp Android sẽ được shop báo khi nhắn tin.' : 'Tạm tính: ' + money(data.total);
+      
+      if (currentLang === 'en') {
+        const baseUsd = getUsdPriceByGroup(current.group);
+        const shipFee = getShippingFee($('#shipRegion').value);
+        const totalUsd = baseUsd + shipFee;
+        $('#doneTotal').textContent = `Total to pay: $${totalUsd} (Base: $${baseUsd} + Ship: $${shipFee})`;
+      } else {
+        $('#doneTotal').textContent = data.total === null ? 'Giá ốp Android sẽ được shop báo khi nhắn tin.' : 'Tạm tính: ' + money(data.total);
+      }
+
       $('#igLink').href = IG_LINK;
       $('#orderView').hidden = true;
       $('#doneView').hidden = false;
       render();
     } else if (data.error === 'sold') {
-      $('#err').textContent = 'Card này vừa có người đặt rồi. Bạn chọn card khác nhé.';
+      $('#err').textContent = t.errSold;
       load();
     } else {
-      $('#err').textContent = 'Chưa gửi được đơn. Bạn kiểm tra lại thông tin và thử lại nhé.';
+      $('#err').textContent = t.errFail;
       $('#send').disabled = false;
     }
   } catch (err) {
-    $('#err').textContent = 'Mất kết nối. Bạn thử gửi lại nhé.';
+    $('#err').textContent = t.errConn;
     $('#send').disabled = false;
   }
 });
 
 document.querySelectorAll('input[name=brand]').forEach(r => r.addEventListener('change', estimate));
+$('#shipRegion').addEventListener('change', estimate);
 $('#sticker').addEventListener('input', () => { const h = !!$('#sticker').value.trim(); if (current && h !== hadSticker) { hadSticker = h; estimate(); } });
 $('#copy').addEventListener('click', () => {
+  const t = langData[currentLang];
   navigator.clipboard.writeText($('#code').textContent);
-  $('#copy').textContent = 'Đã sao chép';
+  $('#copy').textContent = t.copiedBtn;
 });
 ['#close1', '#close2'].forEach(s => $(s).addEventListener('click', () => $('#dlg').close()));
-$('#dlg').addEventListener('close', () => { $('#copy').textContent = 'Sao chép mã'; });
+$('#dlg').addEventListener('close', () => { 
+  const t = langData[currentLang];
+  $('#copy').textContent = t.copyBtn; 
+});
 
 load();
 </script>
