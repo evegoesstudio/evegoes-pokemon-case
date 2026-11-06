@@ -10,10 +10,24 @@
 <style>
 :root{--bg:#c3deff;--ink:#050506;--pink:#aabee5;--pinkd:#aabee5;--line:#e7f2ff;--muted:#292929}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;line-height:1.5}
+
+/* --- ĐÃ THÊM BACKGROUND CHẤM BI VÀO BODY --- */
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: Nunito, system-ui, sans-serif;
+  line-height: 1.5;
+  background-color: var(--bg);
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.4) 15%, transparent 16%),
+    radial-gradient(rgba(255, 255, 255, 0.4) 15%, transparent 16%);
+  background-size: 60px 60px;
+  background-position: 0 0, 30px 30px; /* Tạo xếp so le */
+}
+/* ------------------------------------------- */
+
 header,main{max-width:980px;margin:0 auto;padding:0 20px}
 
-/* --- PHẦN HEADER ĐÃ ĐƯỢC CHỈNH SỬA --- */
 header {
   padding-top: 40px;
   display: flex;
@@ -34,7 +48,7 @@ h1 {
   text-align: center; 
 }
 .info-box {
-  background: rgba(253, 250, 245, 0.7); /* Màu trắng be với opacity 70% để không làm mờ chữ */
+  background: rgba(253, 250, 245, 0.7); 
   border-radius: 16px;
   padding: 18px 22px;
   margin-bottom: 16px;
@@ -44,16 +58,14 @@ h1 {
 .sub { color:var(--muted); margin: 0 0 24px }
 .header-notes { margin-bottom: 32px; }
 
-/* Định dạng riêng cho thẻ Lưu ý */
 .header-notes summary {
   cursor: pointer;
-  font-weight: 800; /* In đậm */
-  font-size: 1.2rem; /* Chữ to hơn */
-  text-transform: uppercase; /* In hoa */
-  text-decoration: underline; /* Gạch chân */
+  font-weight: 800; 
+  font-size: 1.2rem; 
+  text-transform: uppercase; 
+  text-decoration: underline; 
   color: var(--ink);
 }
-/* ------------------------------------ */
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;padding-bottom:48px}
 .card{position:relative;border:0;border-radius:14px;padding:8px;text-align:left;font:inherit;color:inherit;cursor:pointer;box-shadow:0 3px 0 var(--line);transition:transform .15s}
@@ -172,7 +184,6 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
 <body>
 <header>
   <div class="header-content">
-    <!-- Ngắt thẻ br trước chữ Pokémon -->
     <h1>[evegoes studio]<br>Pokémon custom case</h1>
     <div class="sub">
       <div class="info-box">
