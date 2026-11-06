@@ -37,25 +37,76 @@ h1{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(1.7rem,5vw,2
 .status{padding:40px 0;color:var(--muted)}
 h2{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.3rem;margin:8px 0 12px}
 section{margin-bottom:12px}
+
+/* --- ĐÃ SỬA LẠI CSS CHO DIALOG & NÚT TẮT --- */
 dialog {
   position: fixed;
   inset: 0;
   margin: auto;
   border: 0;
+  padding: 0; /* Xoá padding ở đây để tạo khung trong suốt */
+  width: min(460px, calc(100% - 32px));
+  max-height: 90vh;
+  background: transparent; /* Nền trong suốt để nút X có thể nằm ngoài */
+  overflow: visible; /* Cho phép nút X tràn ra ngoài viền */
+}
+dialog::backdrop { background:rgba(58,42,77,.65) }
+
+/* Thẻ bọc nội dung có nền trắng và cuộn */
+.dialog-content {
+  background: #fff;
   border-radius: 18px;
   padding: 22px;
-  width: min(460px, calc(100% - 32px));
   max-height: 90vh;
   overflow-y: auto;
   color: var(--ink);
-  background: #fff;
 }
-dialog::backdrop{background:rgba(58,42,77,.55)}
-.close-btn{position:absolute;top:16px;right:16px;background:var(--line);border:none;border-radius:8px;padding:6px 14px;font-weight:700;color:var(--ink);cursor:pointer;font-family:inherit;font-size:.9rem}
-.close-btn:hover{background:var(--pink);color:var(--ink)}
-.sel{display:flex;gap:12px;align-items:center;margin-bottom:16px;padding-right:65px}
-.sel img{width:56px;aspect-ratio:63/88;object-fit:cover;border-radius:6px}
-.sel b{display:block}
+
+.close-btn {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: var(--ink);
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+.close-btn:hover { background: var(--ink); color: #fff; }
+
+/* Sửa lại phần hiển thị ảnh to full width */
+.sel {
+  display: flex;
+  flex-direction: column; /* Cho ảnh và chữ xếp dọc */
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.sel img {
+  width: 100%;
+  aspect-ratio: 63/88;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.sel b {
+  display: block;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1.4rem;
+  text-align: center;
+}
+/* ------------------------------------------ */
+
 label{display:block;font-weight:700;margin:12px 0 4px}
 input,textarea{width:100%;font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;color:var(--ink)}
 textarea{min-height:70px;resize:vertical}
@@ -103,74 +154,79 @@ Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card ch�
 </main>
 
 <dialog id="dlg">
-<form id="orderView">
-<button type="button" class="close-btn" id="close1">Huỷ</button>
-<div class="sel"><img id="selImg" alt=""><div><b id="selName"></b></div></div>
+<!-- Nút tắt (X) được đưa ra ngang hàng ngoài cùng -->
+<button type="button" class="close-btn" id="close1" aria-label="Đóng">✕</button>
 
-<div class="notes" id="notes" hidden>
-<details><summary>Dòng máy shop nhận và không nhận</summary>
-<p id="notesYes"></p><p id="notesNo"></p>
-</details>
-</div>
+<!-- Nội dung màu trắng được gom vào trong này để cuộn -->
+<div class="dialog-content" id="dlgContent">
+  <form id="orderView">
+  <div class="sel"><img id="selImg" alt=""><div><b id="selName"></b></div></div>
 
-<fieldset class="grp" style="border-top:0;margin-top:0;padding-top:0">
-<legend>Instagram</legend>
-<label for="ig">Tên Instagram và username của bạn</label>
-<input id="ig" required maxlength="60" placeholder="@username" autocomplete="off">
-</fieldset>
+  <div class="notes" id="notes" hidden>
+  <details><summary>Dòng máy shop nhận và không nhận</summary>
+  <p id="notesYes"></p><p id="notesNo"></p>
+  </details>
+  </div>
 
-<fieldset class="grp">
-<legend>Chọn hãng máy</legend>
-<div class="seg" role="radiogroup" aria-label="Hãng điện thoại">
-<label><input type="radio" name="brand" value="iphone" checked> iPhone</label>
-<label><input type="radio" name="brand" value="android"> Android</label>
-</div>
-<label for="phone">Tên dòng máy</label>
-<input id="phone" required maxlength="80" placeholder="Ví dụ: iPhone 14 Pro Max">
-</fieldset>
+  <fieldset class="grp" style="border-top:0;margin-top:0;padding-top:0">
+  <legend>Instagram</legend>
+  <label for="ig">Tên Instagram và username của bạn</label>
+  <input id="ig" required maxlength="60" placeholder="@username" autocomplete="off">
+  </fieldset>
 
-<fieldset class="grp">
-<legend>Sticker nhân vật, tone màu bạn muốn (có thể ghi shop tự deco)</legend>
-<div class="sticks" id="sticks" hidden>
-<a id="stickLink" target="_blank" rel="noopener"><img id="stickImg" alt="Các sticker nhân vật shop có"></a>
-</div>
-<input id="sticker" required maxlength="80" aria-label="Sticker nhân vật và tone màu bạn muốn" placeholder="Ví dụ: Hello Kitty, Kuromi, Usagi,..">
-</fieldset>
+  <fieldset class="grp">
+  <legend>Chọn hãng máy</legend>
+  <div class="seg" role="radiogroup" aria-label="Hãng điện thoại">
+  <label><input type="radio" name="brand" value="iphone" checked> iPhone</label>
+  <label><input type="radio" name="brand" value="android"> Android</label>
+  </div>
+  <label for="phone">Tên dòng máy</label>
+  <input id="phone" required maxlength="80" placeholder="Ví dụ: iPhone 14 Pro Max">
+  </fieldset>
 
-<fieldset class="grp">
-<legend>Thông tin giao hàng</legend>
-<label for="name">Tên người nhận</label>
-<input id="name" required maxlength="80" autocomplete="name">
-<label for="tel">Số điện thoại</label>
-<input id="tel" required maxlength="30" inputmode="tel" autocomplete="tel">
-<label for="address">Địa chỉ nhận hàng (Địa chỉ hành chính mới)</label>
-<textarea id="address" required maxlength="300" autocomplete="street-address" placeholder="Số nhà, đường, quận/huyện, tỉnh/thành."></textarea>
-</fieldset>
+  <fieldset class="grp">
+  <legend>Sticker nhân vật, tone màu bạn muốn (có thể ghi shop tự deco)</legend>
+  <div class="sticks" id="sticks" hidden>
+  <a id="stickLink" target="_blank" rel="noopener"><img id="stickImg" alt="Các sticker nhân vật shop có"></a>
+  </div>
+  <input id="sticker" required maxlength="80" aria-label="Sticker nhân vật và tone màu bạn muốn" placeholder="Ví dụ: Hello Kitty, Kuromi, Usagi,..">
+  </fieldset>
 
-<fieldset class="grp">
-<legend>Ghi chú</legend>
-<label for="note">Ghi chú thêm (Không bắt buộc)</label>
-<textarea id="note" maxlength="500"></textarea>
-</fieldset>
+  <fieldset class="grp">
+  <legend>Thông tin giao hàng</legend>
+  <label for="name">Tên người nhận</label>
+  <input id="name" required maxlength="80" autocomplete="name">
+  <label for="tel">Số điện thoại</label>
+  <input id="tel" required maxlength="30" inputmode="tel" autocomplete="tel">
+  <label for="address">Địa chỉ nhận hàng (Địa chỉ hành chính mới)</label>
+  <textarea id="address" required maxlength="300" autocomplete="street-address" placeholder="Số nhà, đường, quận/huyện, tỉnh/thành."></textarea>
+  </fieldset>
 
-<div class="est" id="est" aria-live="polite"></div>
-<p id="err" class="err" role="alert"></p>
+  <fieldset class="grp">
+  <legend>Ghi chú</legend>
+  <label for="note">Ghi chú thêm (Không bắt buộc)</label>
+  <textarea id="note" maxlength="500"></textarea>
+  </fieldset>
 
-<div class="row">
-<button type="submit" class="btn main" id="send">Gửi đơn</button>
-</div>
-</form>
+  <div class="est" id="est" aria-live="polite"></div>
+  <p id="err" class="err" role="alert"></p>
 
-<div id="doneView" hidden>
-<b>Đã giữ card cho bạn!</b>
-<div class="code" id="code"></div>
-<p id="doneTotal"></p>
-<p>Nhắn shop trên Instagram kèm mã đơn này để xác nhận nhé.</p>
-<div class="row">
-<button type="button" class="btn" id="copy">Sao chép mã</button>
-<a class="btn main" id="igLink" target="_blank" rel="noopener">Nhắn shop</a>
-</div>
-<div class="row"><button type="button" class="btn" id="close2">Đóng</button></div>
+  <div class="row">
+  <button type="submit" class="btn main" id="send">Gửi đơn</button>
+  </div>
+  </form>
+
+  <div id="doneView" hidden>
+  <b>Đã giữ card cho bạn!</b>
+  <div class="code" id="code"></div>
+  <p id="doneTotal"></p>
+  <p>Nhắn shop trên Instagram kèm mã đơn này để xác nhận nhé.</p>
+  <div class="row">
+  <button type="button" class="btn" id="copy">Sao chép mã</button>
+  <a class="btn main" id="igLink" target="_blank" rel="noopener">Nhắn shop</a>
+  </div>
+  <div class="row"><button type="button" class="btn" id="close2">Đóng</button></div>
+  </div>
 </div>
 </dialog>
 
@@ -306,7 +362,9 @@ function openOrder(c) {
   $('#doneView').hidden = true;
   $('#send').disabled = false;
   $('#dlg').showModal();
-  $('#dlg').scrollTop = 0; // Thêm dòng này để luôn cuộn form lên đầu
+  
+  // Đã sửa lại để cuộn đúng vùng nội dung trắng bên trong
+  $('#dlgContent').scrollTop = 0; 
 }
 
 $('#orderView').addEventListener('submit', async e => {
