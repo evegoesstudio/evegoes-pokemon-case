@@ -12,9 +12,39 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;line-height:1.5}
 header,main{max-width:980px;margin:0 auto;padding:0 20px}
-header{padding-top:40px}
-h1{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(1.7rem,5vw,2.7rem);line-height:1.05;margin:0}
-.sub{max-width:54ch;color:var(--muted);margin:10px 0 24px}
+
+/* --- ĐÃ SỬA LẠI CSS PHẦN HEADER --- */
+header {
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Căn giữa toàn bộ khối nội dung trên PC */
+}
+.header-content {
+  width: 100%;
+  max-width: 600px; /* Giới hạn độ rộng để khối text không bị bè ngang quá mức */
+  text-align: left; /* Giữ chữ bên trong căn trái */
+}
+h1 {
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.7rem, 5vw, 2.7rem);
+  line-height: 1.05;
+  margin: 0 0 20px;
+  text-align: center; /* Tiêu đề chính căn giữa cho đẹp */
+}
+.info-box {
+  background: #fdfaf5; /* Màu nền trắng be siêu nhạt */
+  border-radius: 16px;
+  padding: 18px 22px;
+  margin-bottom: 16px;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.sub{color:var(--muted); margin: 0 0 24px}
+.header-notes { margin-bottom: 32px; }
+/* ---------------------------------- */
+
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;padding-bottom:48px}
 .card{position:relative;border:0;border-radius:14px;padding:8px;text-align:left;font:inherit;color:inherit;cursor:pointer;box-shadow:0 3px 0 var(--line);transition:transform .15s}
 .card-default{background:#fff}
@@ -38,21 +68,19 @@ h1{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(1.7rem,5vw,2
 h2{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.3rem;margin:8px 0 12px}
 section{margin-bottom:12px}
 
-/* --- ĐÃ SỬA LẠI CSS CHO DIALOG & NÚT TẮT --- */
 dialog {
   position: fixed;
   inset: 0;
   margin: auto;
   border: 0;
-  padding: 0; /* Xoá padding ở đây để tạo khung trong suốt */
+  padding: 0;
   width: min(460px, calc(100% - 32px));
   max-height: 90vh;
-  background: transparent; /* Nền trong suốt để nút X có thể nằm ngoài */
-  overflow: visible; /* Cho phép nút X tràn ra ngoài viền */
+  background: transparent;
+  overflow: visible;
 }
 dialog::backdrop { background:rgba(58,42,77,.65) }
 
-/* Thẻ bọc nội dung có nền trắng và cuộn */
 .dialog-content {
   background: #fff;
   border-radius: 18px;
@@ -85,10 +113,9 @@ dialog::backdrop { background:rgba(58,42,77,.65) }
 }
 .close-btn:hover { background: var(--ink); color: #fff; }
 
-/* Sửa lại phần hiển thị ảnh to full width */
 .sel {
   display: flex;
-  flex-direction: column; /* Cho ảnh và chữ xếp dọc */
+  flex-direction: column;
   gap: 12px;
   align-items: center;
   margin-bottom: 24px;
@@ -105,7 +132,6 @@ dialog::backdrop { background:rgba(58,42,77,.65) }
   font-size: 1.4rem;
   text-align: center;
 }
-/* ------------------------------------------ */
 
 label{display:block;font-weight:700;margin:12px 0 4px}
 input,textarea{width:100%;font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;color:var(--ink)}
@@ -135,17 +161,30 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
 </head>
 <body>
 <header>
-<h1>[evegoes studio] Pokémon custom case</h1>
-<p class="sub">
-Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card chỉ có 1 chiếc và là offical card.<br>
-- Đối với dòng iphone: Bạn chọn card và chọn phân loại iphone để xem tổng giá.<br>
-- Các dòng android giá sẽ cao hơn iphone từ 20-40k, ib shop để nhận báo giá ạ.<br><br>
-★ ★ ★ Shop sử dụng ốp lưng cứng cho tất cả dòng điện thoại, mặt lưng không ố vàng, ốp được phủ resin, sau đó là lớp chống rít khi sử dụng để trải nghiệm cầm nắm được tốt hơn<br><br>
-♥ evegoes sẽ từ chối những đơn có yêu cầu quá cao/ quá chi tiết.<br>
-♥ Thời gian trả đơn và gửi hàng: 1-2 tuần (thời gian gửi hàng có thể sớm hơn)<br>
-♥ Shop sẽ trả đơn theo thứ tự điền form, sau khi hoàn thành, ảnh/video sẽ được gửi cho cậu.<br>
-♥ Khi chưa đến hạn trả đơn, shop sẽ không trả lời các tin nhắn hối hàng.
-</p>
+  <div class="header-content">
+    <h1>[evegoes studio] Pokémon custom case</h1>
+    <div class="sub">
+      <div class="info-box">
+        Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card chỉ có 1 chiếc.<br>
+        - Đối với dòng iphone: Bạn chọn card và chọn phân loại iphone để xem tổng giá.<br>
+        - Các dòng android giá sẽ cao hơn iphone từ 20-40k, ib shop để nhận báo giá ạ.
+      </div>
+
+      <div class="notes header-notes">
+        <details>
+          <summary>Lưu ý (Đọc kỹ)</summary>
+          <p>
+          ★ ★ ★ Shop sử dụng ốp lưng cứng cho tất cả dòng điện thoại, mặt lưng không ố vàng, ốp được phủ resin, sau đó là lớp chống rít khi sử dụng để trải nghiệm cầm nắm được tốt hơn<br><br>
+          ♥ evegoes sẽ từ chối những đơn có yêu cầu quá cao/ quá chi tiết.<br>
+          ♥ Thời gian trả đơn và gửi hàng: 1-2 tuần (thời gian gửi hàng có thể sớm hơn)<br>
+          - Sau khi điền form cậu hãy nhắn ngay cho sốp để được xác nhận đơn và tính tổng tiền nha ~<br><br>
+          ♥ Shop sẽ trả đơn theo thứ tự điền form, sau khi hoàn thành, ảnh/video sẽ được gửi cho cậu.<br>
+          ♥ Khi chưa đến hạn trả đơn, shop sẽ không trả lời các tin nhắn hối hàng.
+          </p>
+        </details>
+      </div>
+    </div>
+  </div>
 </header>
 <main>
 <div id="status" class="status" role="status">Đang tải card…</div>
@@ -153,10 +192,8 @@ Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card ch�
 </main>
 
 <dialog id="dlg">
-<!-- Nút tắt (X) được đưa ra ngang hàng ngoài cùng -->
 <button type="button" class="close-btn" id="close1" aria-label="Đóng">✕</button>
 
-<!-- Nội dung màu trắng được gom vào trong này để cuộn -->
 <div class="dialog-content" id="dlgContent">
   <form id="orderView">
   <div class="sel"><img id="selImg" alt=""><div><b id="selName"></b></div></div>
@@ -230,15 +267,12 @@ Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card ch�
 </dialog>
 
 <script>
-// ===== CHỈ CẦN SỬA 2 DÒNG NÀY =====
 const API_URL = 'https://script.google.com/macros/s/AKfycby4k9nBqIPgVcBMQNYoGcDIe_C8YIST_jMJV-8GNPrWbODx9NZFZ6A_5oMTgRu7hBWdWw/exec';
 const IG_LINK = 'https://www.instagram.com/evegoes.studio/';
-// ==================================
 
 const $ = s => document.querySelector(s);
 let cards = [], current = null, cfg = { iphonePrice: 0, stickerPrice: 0, stickerImage: '', supported: '', unsupported: '', androidNote: '' };
 
-// Đổi link chia sẻ Drive thành link ảnh hiển thị được
 function imgUrl(u, size) {
   if (!u) return '';
   const str = String(u).trim();
@@ -253,7 +287,6 @@ function money(p) {
   return (p === '' || isNaN(p)) ? String(p) : Number(p).toLocaleString('vi-VN') + 'đ';
 }
 
-// Số trong tên nhóm quyết định thứ tự và màu: "Nhóm 1" hiện trên cùng
 function getGroupPriority(groupName) {
   const name = String(groupName || '').trim().toLowerCase();
   if (name.indexOf('1') !== -1) return 1;
@@ -361,8 +394,6 @@ function openOrder(c) {
   $('#doneView').hidden = true;
   $('#send').disabled = false;
   $('#dlg').showModal();
-  
-  // Đã sửa lại để cuộn đúng vùng nội dung trắng bên trong
   $('#dlgContent').scrollTop = 0; 
 }
 
