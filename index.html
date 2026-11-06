@@ -25,45 +25,45 @@ body {
 header,main{max-width:980px;margin:0 auto;padding:0 20px}
 
 header {
-  padding-top: 40px;
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center; 
   position: relative;
 }
 
+/* Đã đẩy nút lên cao hơn (top: 10px) và thu gọn viền (border: 1.5px) cho thanh thoát */
 .lang-switch-container {
   position: absolute;
-  top: 15px;
-  right: 20px;
+  top: 10px;
+  right: 15px;
   display: flex;
   align-items: center;
   background: #fff;
-  border: 2px solid var(--ink);
-  border-radius: 24px;
-  width: 150px;
-  height: 40px;
+  border: 1.5px solid var(--ink);
+  border-radius: 22px;
+  width: 140px;
+  height: 36px;
   cursor: pointer;
-  padding: 3px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
-  position: absolute;
+  padding: 2.5px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 10;
 }
 
-/* Đã bỏ border đen (stroke), chỉ giữ nguyên màu vàng #fff6d1 */
 .lang-slider {
   position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 70px;
-  height: 30px;
+  top: 2.5px;
+  left: 2.5px;
+  width: 65px;
+  height: 29px;
   background: #fff6d1;
-  border-radius: 17px;
+  border-radius: 15px;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
 }
 
 .lang-switch-container.is-vi .lang-slider {
-  transform: translateX(71px);
+  transform: translateX(67px);
 }
 
 .lang-option {
@@ -71,9 +71,9 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 4px;
   font-weight: 800;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   z-index: 2;
   color: var(--ink);
   user-select: none;
@@ -81,8 +81,8 @@ header {
 }
 
 .lang-option svg {
-  width: 18px;
-  height: 13px;
+  width: 16px;
+  height: 12px;
   border-radius: 2px;
   box-shadow: 0 0 1px rgba(0,0,0,0.3);
   object-fit: cover;
