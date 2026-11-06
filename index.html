@@ -13,37 +13,47 @@
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;line-height:1.5}
 header,main{max-width:980px;margin:0 auto;padding:0 20px}
 
-/* --- ĐÃ SỬA LẠI CSS PHẦN HEADER --- */
+/* --- PHẦN HEADER ĐÃ ĐƯỢC CHỈNH SỬA --- */
 header {
   padding-top: 40px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Căn giữa toàn bộ khối nội dung trên PC */
+  align-items: center; 
 }
 .header-content {
   width: 100%;
-  max-width: 600px; /* Giới hạn độ rộng để khối text không bị bè ngang quá mức */
-  text-align: left; /* Giữ chữ bên trong căn trái */
+  max-width: 600px; 
+  text-align: left; 
 }
 h1 {
   font-family: 'Baloo 2', sans-serif;
   font-weight: 800;
   font-size: clamp(1.7rem, 5vw, 2.7rem);
-  line-height: 1.05;
+  line-height: 1.1;
   margin: 0 0 20px;
-  text-align: center; /* Tiêu đề chính căn giữa cho đẹp */
+  text-align: center; 
 }
 .info-box {
-  background: #fdfaf5; /* Màu nền trắng be siêu nhạt */
+  background: rgba(253, 250, 245, 0.7); /* Màu trắng be với opacity 70% để không làm mờ chữ */
   border-radius: 16px;
   padding: 18px 22px;
   margin-bottom: 16px;
   color: var(--ink);
   line-height: 1.6;
 }
-.sub{color:var(--muted); margin: 0 0 24px}
+.sub { color:var(--muted); margin: 0 0 24px }
 .header-notes { margin-bottom: 32px; }
-/* ---------------------------------- */
+
+/* Định dạng riêng cho thẻ Lưu ý */
+.header-notes summary {
+  cursor: pointer;
+  font-weight: 800; /* In đậm */
+  font-size: 1.2rem; /* Chữ to hơn */
+  text-transform: uppercase; /* In hoa */
+  text-decoration: underline; /* Gạch chân */
+  color: var(--ink);
+}
+/* ------------------------------------ */
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;padding-bottom:48px}
 .card{position:relative;border:0;border-radius:14px;padding:8px;text-align:left;font:inherit;color:inherit;cursor:pointer;box-shadow:0 3px 0 var(--line);transition:transform .15s}
@@ -162,7 +172,8 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
 <body>
 <header>
   <div class="header-content">
-    <h1>[evegoes studio] Pokémon custom case</h1>
+    <!-- Ngắt thẻ br trước chữ Pokémon -->
+    <h1>[evegoes studio]<br>Pokémon custom case</h1>
     <div class="sub">
       <div class="info-box">
         Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card chỉ có 1 chiếc.<br>
