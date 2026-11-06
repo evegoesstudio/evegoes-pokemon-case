@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pokémon card custom case</title>
-<link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
-<link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
-<link href="[https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700&display=swap](https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700&display=swap)" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#c3deff;--ink:#050506;--pink:#aabee5;--pinkd:#aabee5;--line:#e7f2ff;--muted:#292929}
 *{box-sizing:border-box}
@@ -16,7 +16,7 @@ header{padding-top:40px}
 h1{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(1.7rem,5vw,2.7rem);line-height:1.05;margin:0}
 .sub{max-width:54ch;color:var(--muted);margin:10px 0 24px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;padding-bottom:48px}
-.card{position:relative;border:0;background:#fff;border-radius:14px;padding:8px;text-align:left;font:inherit;color:inherit;cursor:pointer;box-shadow:0 3px 0 var(--line);transition:transform .15s}
+.card{position:relative;border:0;border-radius:14px;padding:8px;text-align:left;font:inherit;color:inherit;cursor:pointer;box-shadow:0 3px 0 var(--line);transition:transform .15s}
 .card-default{background:#fff}
 .card-nhom-1{background:#ffe6ef}
 .card-nhom-2{background:#fff6d1}
@@ -164,16 +164,23 @@ Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card ch�
 </dialog>
 
 <script>
-const API_URL = '[https://script.google.com/macros/s/AKfycbwWZn0jRg-u0zjy1K8r-Ave-CQwVzwJ3fHSosQzZhyGpKWvjsmSCWgD4VjljvL0lHKM/exec](https://script.google.com/macros/s/AKfycbwWZn0jRg-u0zjy1K8r-Ave-CQwVzwJ3fHSosQzZhyGpKWvjsmSCWgD4VjljvL0lHKM/exec)';
-const IG_LINK = '[https://www.instagram.com/evegoes.studio/](https://www.instagram.com/evegoes.studio/)';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwWZn0jRg-u0zjy1K8r-Ave-CQwVzwJ3fHSosQzZhyGpKWvjsmSCWgD4VjljvL0lHKM/exec';
+const IG_LINK = 'https://www.instagram.com/evegoes.studio/';
 
 const $ = s => document.querySelector(s);
 let cards = [], current = null, cfg = { iphonePrice: 0, stickerPrice: 0, stickerImage: '', supported: '', unsupported: '', androidNote: '' };
 
+// Cải tiến hàm nhận diện link Google Drive để ảnh luôn load thành công
 function imgUrl(u) {
-const m = String(u || '').match(/\/d\/([\w-]+)|[?&]id=([\w-]+)/);
-return m ? '[https://drive.google.com/thumbnail?id=](https://drive.google.com/thumbnail?id=)' + (m[1] || m[2]) + '&sz=w600' : u;
+  if (!u) return '';
+  const str = String(u).trim();
+  const match = str.match(/(?:\/d\/|id=)([a-zA-Z0-9_-]+)/);
+  if (match && match[1]) {
+    return 'https://drive.google.com/uc?export=view&id=' + match[1];
+  }
+  return str;
 }
+
 function money(p) {
 return (p === '' || isNaN(p)) ? String(p) : Number(p).toLocaleString('vi-VN') + 'đ';
 }
@@ -278,7 +285,7 @@ $('#notes').hidden = !(cfg.supported || cfg.unsupported);
 $('#notesYes').textContent = cfg.supported ? 'Nhận: ' + cfg.supported : '';
 $('#notesNo').textContent = cfg.unsupported ? 'Không nhận: ' + cfg.unsupported : '';
 $('#sticks').hidden = !cfg.stickerImage;
-if (cfg.stickerImage) { $('#stickImg').src = imgUrl(cfg.stickerImage).replace('w600', 'w1200'); $('#stickLink').href = imgUrl(cfg.stickerImage).replace('w600', 'w2000'); }
+if (cfg.stickerImage) { $('#stickImg').src = imgUrl(cfg.stickerImage); $('#stickLink').href = imgUrl(cfg.stickerImage); }
 hadSticker = !!$('#sticker').value.trim();
 estimate();
 $('#orderView').hidden = false;
