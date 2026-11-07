@@ -276,14 +276,17 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
 .est{background:var(--bg);border-radius:10px;padding:10px 12px;margin-top:14px;font-weight:700}
 .est small{display:block;font-weight:400;color:var(--muted)}
 
+/* CĂN CHỈNH LẠI PHẦN HOÀN TẤT ĐƠN CHO MOBILE KHÔNG BỊ ÉP CHỮ */
 .done-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
+  position: relative;
+  padding-right: 75px; /* Chừa không gian cho con Clefairy */
+  min-height: 75px;
 }
 .done-header img {
-  width: 70px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 65px;
   flex-shrink: 0;
   image-rendering: pixelated;
 }
