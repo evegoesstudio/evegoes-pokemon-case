@@ -39,7 +39,7 @@ header {
   display: flex;
   align-items: center;
   background: #c3deff;
-  border: 0px solid var(--ink);
+  border: 0px solid transparent; /* Đã bỏ viền đen về 0px theo yêu cầu */
   border-radius: 22px;
   width: 140px;
   height: 36px;
@@ -294,6 +294,7 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
 </head>
 <body>
 <header>
+  <!-- Đã cấu hình sẵn class is-vi từ đầu để đồng bộ hoàn toàn ngay khi load trang -->
   <div id="langToggle" class="lang-switch-container is-vi" role="button" aria-label="Toggle Language">
     <div class="lang-slider"></div>
     <div class="lang-option">
