@@ -120,31 +120,29 @@ h1 {
 
 .sub { color:var(--muted); margin: 0 0 24px }
 
-/* KHU VỰC LƯU Ý VÀ SNORLAX Ở DƯỚI */
+/* KHU VỰC LƯU Ý VÀ SNORLAX DÙNG FLOAT ĐỂ TRÀN FULL BOX */
 .notes-container {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 20px;
   margin-bottom: 32px;
-}
-
-.header-notes {
-  flex: 1;
-  margin-bottom: 0 !important;
+  position: relative;
 }
 
 .snorlax-mascot {
+  float: right;
   width: 85px;
-  flex-shrink: 0;
+  margin-left: 15px;
+  margin-bottom: 5px;
   image-rendering: pixelated;
   animation: bounce 2s ease-in-out infinite;
-  margin-bottom: 4px;
+  shape-margin: 10px;
 }
 
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
+}
+
+.header-notes {
+  margin-bottom: 0 !important;
 }
 
 .header-notes summary {
@@ -276,10 +274,9 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
 .est{background:var(--bg);border-radius:10px;padding:10px 12px;margin-top:14px;font-weight:700}
 .est small{display:block;font-weight:400;color:var(--muted)}
 
-/* CĂN CHỈNH LẠI PHẦN HOÀN TẤT ĐƠN CHO MOBILE KHÔNG BỊ ÉP CHỮ */
 .done-header {
   position: relative;
-  padding-right: 75px; /* Chừa không gian cho con Clefairy */
+  padding-right: 75px;
   min-height: 75px;
 }
 .done-header img {
@@ -319,6 +316,7 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
       </div>
 
       <div class="notes-container">
+        <img src="snorlax.gif" class="snorlax-mascot" alt="Snorlax mascot">
         <div class="notes header-notes">
           <details>
             <summary class="note-title" id="t-noteTitle">Lưu ý (Đọc kỹ)</summary>
@@ -340,7 +338,6 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
             </p>
           </details>
         </div>
-        <img src="snorlax.gif" class="snorlax-mascot" alt="Snorlax mascot">
       </div>
     </div>
   </div>
