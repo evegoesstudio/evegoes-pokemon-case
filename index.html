@@ -101,16 +101,39 @@ h1 {
   text-align: center; 
 }
 
-/* HIỆU ỨNG REAL GLASS KIỂU iOS/visionOS */
+/* HIỆU ỨNG REAL GLASS & BỐ CỤC HEADER CÓ SNORLAX */
+.header-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.info-box-wrapper {
+  flex: 1;
+}
+
+.snorlax-mascot {
+  width: 90px;
+  flex-shrink: 0;
+  margin-top: 10px;
+  image-rendering: pixelated;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
 .info-box {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.1) 100%);
   backdrop-filter: blur(24px) saturate(150%);
   -webkit-backdrop-filter: blur(24px) saturate(150%);
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 
-    0 12px 40px rgba(0, 0, 0, 0.1), /* Bóng đổ hắt xuống */
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.8), /* Viền sáng mép trên (Bevel) */
-    inset 1.5px 0 1.5px rgba(255, 255, 255, 0.4); /* Viền sáng mép trái */
+    0 12px 40px rgba(0, 0, 0, 0.1),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.8),
+    inset 1.5px 0 1.5px rgba(255, 255, 255, 0.4);
   border-radius: 16px;
   padding: 18px 22px;
   margin-bottom: 16px;
@@ -249,6 +272,19 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
 .sticks img{width:100%;border-radius:10px;display:block;margin-bottom:6px}
 .est{background:var(--bg);border-radius:10px;padding:10px 12px;margin-top:14px;font-weight:700}
 .est small{display:block;font-weight:400;color:var(--muted)}
+
+.done-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.done-header img {
+  width: 70px;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+
 [hidden]{display:none!important}
 @media (prefers-reduced-motion:reduce){.card{transition:none}}
 </style>
@@ -270,10 +306,15 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
   <div class="header-content">
     <h1 id="t-title">[evegoes studio]<br>Pokémon custom case</h1>
     <div class="sub">
-      <div class="info-box" id="t-infobox">
-        Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card chỉ có 1 chiếc, tất cả là offical card.<br>
-        - Đối với dòng iphone: Bạn chọn card và chọn phân loại iphone để xem tổng giá.<br>
-        - Các dòng android giá sẽ cao hơn iphone từ 20-40k, nhắn cho shop để nhận báo giá ạ.
+      <div class="header-inner">
+        <div class="info-box-wrapper">
+          <div class="info-box" id="t-infobox">
+            Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card chỉ có 1 chiếc, tất cả là offical card.<br>
+            - Đối với dòng iphone: Bạn chọn card và chọn phân loại iphone để xem tổng giá.<br>
+            - Các dòng android giá sẽ cao hơn iphone từ 20-40k, nhắn cho shop để nhận báo giá ạ.
+          </div>
+        </div>
+        <img src="https://lh3.googleusercontent.com/d/6e20b494351426fe94a519c3b8aaa7c5=s400" class="snorlax-mascot" alt="Snorlax mascot">
       </div>
 
       <div class="notes header-notes">
@@ -335,7 +376,7 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
   </fieldset>
 
   <fieldset class="grp" id="shipSection" hidden>
-  <legend id="t-legShip">International Shipping</legend>
+  <legend id="t-legShip">International Payment</legend>
   <label for="shipRegion" id="t-lblShip">Select Region</label>
   <select id="shipRegion">
     <option value="none">-- Select Shipping Region --</option>
@@ -378,15 +419,20 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
   </form>
 
   <div id="doneView" hidden>
-  <b id="t-doneTitle">Đã giữ card cho bạn! (Card được giữ tối đa 1 tiếng)</b>
-  <div class="code" id="code"></div>
-  <p id="doneTotal"></p>
-  <p id="t-doneDesc">Vui lòng nhắn shop qua Instagram kèm mã đơn để xác nhận và thanh toán (quá 1 tiếng đơn sẽ bị hủy).</p>
-  <div class="row">
-  <button type="button" class="btn" id="copy">Sao chép mã</button>
-  <a class="btn main" id="igLink" target="_blank" rel="noopener">Nhắn shop</a>
-  </div>
-  <div class="row"><button type="button" class="btn" id="close2">Đóng</button></div>
+    <div class="done-header">
+      <div>
+        <b id="t-doneTitle">Đã giữ card cho bạn! (Card được giữ tối đa 1 tiếng)</b>
+        <div class="code" id="code"></div>
+      </div>
+      <img src="https://lh3.googleusercontent.com/d/5e9e55d066a382dbffe2e7551ed383dc=s400" alt="Snorlax done">
+    </div>
+    <p id="doneTotal"></p>
+    <p id="t-doneDesc">Vui lòng nhắn shop qua Instagram kèm mã đơn để xác nhận và thanh toán (quá 1 tiếng đơn sẽ bị hủy).</p>
+    <div class="row">
+    <button type="button" class="btn" id="copy">Sao chép mã</button>
+    <a class="btn main" id="igLink" target="_blank" rel="noopener">Nhắn shop</a>
+    </div>
+    <div class="row"><button type="button" class="btn" id="close2">Đóng</button></div>
   </div>
 </div>
 </dialog>
