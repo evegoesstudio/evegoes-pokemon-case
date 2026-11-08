@@ -10,6 +10,9 @@
 <style>
 :root{--bg:#c3deff;--ink:#050506;--pink:#aabee5;--pinkd:#aabee5;--line:#e7f2ff;--muted:#292929}
 *{box-sizing:border-box}
+html {
+  scroll-behavior: smooth; /* Cuộn mượt */
+}
 body {
   margin: 0;
   color: var(--ink);
@@ -301,8 +304,44 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
   image-rendering: pixelated;
 }
 
+/* NÚT BACK TO TOP THEO YÊU CẦU */
+#backToTopBtn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  background-color: rgba(255, 255, 255, 0.4); /* Nền trắng mờ đục */
+  backdrop-filter: blur(8px); /* Hiệu ứng mờ như kính */
+  -webkit-backdrop-filter: blur(8px);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  -webkit-tap-highlight-color: transparent;
+}
+#backToTopBtn.show {
+  opacity: 1;
+  visibility: visible;
+}
+#backToTopBtn:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+#backToTopBtn svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--ink);
+}
+
 [hidden]{display:none!important}
-@media (prefers-reduced-motion:reduce){.card{transition:none}}
+@media (prefers-reduced-motion:reduce){.card{transition:none}; html{scroll-behavior:auto;}}
 </style>
 </head>
 <body>
@@ -450,6 +489,11 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
 </div>
 </dialog>
 
+<!-- NÚT BACK TO TOP -->
+<button id="backToTopBtn" aria-label="Lên đầu trang">
+  <svg viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>
+</button>
+
 <script>
 const API_URL = 'https://script.google.com/macros/s/AKfycby4k9nBqIPgVcBMQNYoGcDIe_C8YIST_jMJV-8GNPrWbODx9NZFZ6A_5oMTgRu7hBWdWw/exec';
 const IG_LINK = 'https://www.instagram.com/evegoes.studio/';
@@ -457,6 +501,19 @@ const IG_LINK = 'https://www.instagram.com/evegoes.studio/';
 const $ = s => document.querySelector(s);
 let cards = [], current = null, currentLang = 'vi';
 let cfg = { iphonePrice: 0, stickerPrice: 0, stickerImage: '', supported: '', unsupported: '', androidNote: '' };
+
+// XỬ LÝ NÚT BACK TO TOP
+const backToTopBtn = $('#backToTopBtn');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 300) {
+    backToTopBtn.classList.add('show');
+  } else {
+    backToTopBtn.classList.remove('show');
+  }
+});
+backToTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 
 function getUsdPriceByGroup(groupName) {
   const name = String(groupName || '').trim().toLowerCase();
