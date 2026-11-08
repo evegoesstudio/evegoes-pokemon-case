@@ -101,6 +101,20 @@ h1 {
   text-align: center; 
 }
 
+/* KHU VỰC 2 ẢNH HERO (DƯỚI TIÊU ĐỀ) */
+.hero-images {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.hero-images img {
+  width: calc(50% - 6px);
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 2px solid rgba(255,255,255,0.5);
+}
+
 /* HIỆU ỨNG REAL GLASS CHO INFOBOX */
 .info-box {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.1) 100%);
@@ -307,6 +321,13 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
 
   <div class="header-content">
     <h1 id="t-title">[evegoes studio]<br>Pokémon custom case</h1>
+    
+    <!-- 2 ẢNH VỪA ĐƯỢC THÊM VÀO ĐÂY -->
+    <div class="hero-images">
+      <img src="poke.jpg" alt="Pokémon custom case 1" loading="lazy">
+      <img src="IMG_6980.jpg" alt="Pokémon custom case 2" loading="lazy">
+    </div>
+
     <div class="sub">
       <div class="info-box" id="t-infobox">
         Card được sắp xếp theo nhóm mức giá từ cao-thấp, mỗi card chỉ có 1 chiếc, tất cả là offical card.<br>
@@ -368,7 +389,7 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
   </fieldset>
 
   <fieldset class="grp" id="shipSection" hidden>
-  <legend id="t-legShip">International Shipping</legend>
+  <legend id="t-legShip">International Payment</legend>
   <label for="shipRegion" id="t-lblShip">Select Region</label>
   <select id="shipRegion">
     <option value="none">-- Select Shipping Region --</option>
@@ -512,7 +533,7 @@ const langData = {
     title: "[evegoes studio]<br>Pokémon custom case",
     infobox: "Cards are sorted by price group from high to low. Each card is unique (1 available), and all are official.<br>- Select a card and choose your phone model to see the total price.<br>- We use high-quality hard cases for all phone models.<br><br>★ International payment is available via Wise/Remitly.",
     noteTitle: "Important Notes (Please read)",
-    noteContent: "★ ★ ★ We use hard phone cases for all models. The back is non-yellowing, coated with resin, and finished with an anti-slip layer for a better grip.<br>♥ evegoes will decline orders with overly demanding or excessively detailed requests.<br>♥ Processing time: 1 week (Shipping time: 2-4 weeks depending on your region).<br>♥ Orders are fulfilled in the order they are placed. Once completed, photos/videos will be sent to you.<br>♥ Please allow the full processing time before inquiring about your order status.<br>♥ Note: Submitted orders are held for a maximum of 1 hour. Please message us to confirm and complete your payment within this time.",
+    noteContent: "★ ★ ★ We use hard phone cases for all models. The back is non-yellowing, coated with resin, and finished with an anti-slip layer for a better grip experience.<br>♥ evegoes will decline orders with overly demanding or excessively detailed requests.<br>♥ Processing time: 1 week (Shipping time: 2-3 weeks depending on your region).<br>♥ Orders are fulfilled in the order they are placed. Once completed, photos/videos will be sent to you.<br>♥ Please do not message us to rush your order before the deadline.<br>♥ Note: Submitted orders are held for a maximum of 1 hour. Please message us to confirm and complete your payment within this time.",
     expTitle: "Experience ♥",
     expContent: "Unlike simply placing a card into a standard clear plastic case, a custom case is a detailed personalization process: Your chosen card will be mixed and matched with stickers, charms, and colors according to your aesthetic and requests.<br><br>The case is coated with a sturdy resin layer that securely fixes the card on the surface, creating a seamless, embossed effect for the entire design, while also preventing scratches on the back of your phone (which often happens when just slipping a card inside a case).",
     statusLoad: "Loading cards…",
