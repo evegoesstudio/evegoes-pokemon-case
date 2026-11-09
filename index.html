@@ -11,7 +11,7 @@
 :root{--bg:#c3deff;--ink:#050506;--pink:#aabee5;--pinkd:#aabee5;--line:#e7f2ff;--muted:#292929}
 *{box-sizing:border-box}
 html {
-  scroll-behavior: smooth; /* Cuộn mượt */
+  scroll-behavior: smooth; 
 }
 body {
   margin: 0;
@@ -104,7 +104,6 @@ h1 {
   text-align: center; 
 }
 
-/* KHU VỰC 2 ẢNH HERO (DƯỚI TIÊU ĐỀ) */
 .hero-images {
   display: flex;
   gap: 12px;
@@ -118,7 +117,6 @@ h1 {
   border: 2px solid rgba(255,255,255,0.5);
 }
 
-/* HIỆU ỨNG REAL GLASS CHO INFOBOX */
 .info-box {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.1) 100%);
   backdrop-filter: blur(24px) saturate(150%);
@@ -137,7 +135,6 @@ h1 {
 
 .sub { color:var(--muted); margin: 0 0 24px }
 
-/* KHU VỰC LƯU Ý VÀ SNORLAX FLOAT RIGHT */
 .notes-container {
   margin-bottom: 32px;
 }
@@ -304,15 +301,14 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
   image-rendering: pixelated;
 }
 
-/* NÚT BACK TO TOP THEO YÊU CẦU */
 #backToTopBtn {
   position: fixed;
   bottom: 24px;
   right: 24px;
   width: 48px;
   height: 48px;
-  background-color: rgba(255, 255, 255, 0.4); /* Nền trắng mờ đục */
-  backdrop-filter: blur(8px); /* Hiệu ứng mờ như kính */
+  background-color: rgba(255, 255, 255, 0.4); 
+  backdrop-filter: blur(8px); 
   -webkit-backdrop-filter: blur(8px);
   border: none;
   border-radius: 50%;
@@ -361,7 +357,6 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
   <div class="header-content">
     <h1 id="t-title">[evegoes studio]<br>Pokémon custom case</h1>
     
-    <!-- 2 ẢNH VỪA ĐƯỢC FIX ĐÚNG ĐUÔI FILE TRÊN GITHUB (.png VÀ .jpeg) -->
     <div class="hero-images">
       <img src="poke.png" alt="Pokémon custom case 1" loading="lazy">
       <img src="IMG_6980.jpeg" alt="Pokémon custom case 2" loading="lazy">
@@ -379,13 +374,11 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
         <div class="notes header-notes">
           <details>
             <summary class="note-title" id="t-noteTitle">Lưu ý (Đọc kỹ)</summary>
-            <!-- Dòng chữ được viết liền để xóa dấu ngắt dòng ẩn -->
             <p id="t-noteContent">★ ★ ★ Shop sử dụng ốp lưng cứng cho tất cả dòng, mặt lưng không ố vàng, ốp được phủ resin, sau đó là lớp chống rít khi sử dụng để trải nghiệm cầm nắm được tốt hơn.<br>♥ evegoes sẽ từ chối những đơn có yêu cầu quá cao/ quá chi tiết.<br>♥ Thời gian trả đơn và gửi hàng: 1-2 tuần (có thể sớm hơn)<br>♥ Shop sẽ trả đơn theo thứ tự đặt đơn, sau khi hoàn thành, ảnh/video sẽ được gửi cho cậu.<br>♥ Khi chưa đến hạn trả đơn, shop sẽ không trả lời các tin nhắn hối hàng.<br>♥ Lưu ý: Đơn gửi sẽ được giữ tối đa 1 tiếng, vui lòng nhắn shop xác nhận và thanh toán trong thời gian này.</p>
           </details>
           
           <details style="margin-top: 14px;">
             <summary class="exp-title" id="t-expTitle">Trải nghiệm ♥</summary>
-            <!-- Dòng chữ được viết liền để xóa dấu ngắt dòng ẩn -->
             <p id="t-expContent">Khác với việc chỉ đặt card vào ốp nhựa trong suốt thông thường, ốp custom là một quá trình cá nhân hóa từng chi tiết: Chiếc card bạn chọn sẽ được mix-match cùng sticker, charm và màu sắc theo đúng gu/ yêu cầu của bạn.<br><br>Ốp được phủ resin cứng cáp giúp cố định card trên mặt ốp và tạo hiệu ứng nổi, liền mạch cho toàn bộ thiết kế, đồng thời tránh làm xước lưng máy khi nhét card sau ốp.</p>
           </details>
         </div>
@@ -430,8 +423,9 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
   <fieldset class="grp" id="shipSection" hidden>
   <legend id="t-legShip">International Shipping</legend>
   <label for="shipRegion" id="t-lblShip">Select Region</label>
+  <!-- Đã thay đổi thành bắt buộc nhập và để value rỗng mặc định -->
   <select id="shipRegion">
-    <option value="none">-- Select Shipping Region --</option>
+    <option value="" disabled selected>-- Select Shipping Region --</option>
     <option value="Asia (+$10)">Asia (+$10)</option>
     <option value="Australia / US (+$15)">Australia / US (+$15)</option>
     <option value="Europe / EU (+$37)">Europe / EU (+$37)</option>
@@ -489,7 +483,6 @@ a.btn{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:11px
 </div>
 </dialog>
 
-<!-- NÚT BACK TO TOP -->
 <button id="backToTopBtn" aria-label="Lên đầu trang">
   <svg viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>
 </button>
@@ -502,7 +495,6 @@ const $ = s => document.querySelector(s);
 let cards = [], current = null, currentLang = 'vi';
 let cfg = { iphonePrice: 0, stickerPrice: 0, stickerImage: '', supported: '', unsupported: '', androidNote: '' };
 
-// XỬ LÝ NÚT BACK TO TOP
 const backToTopBtn = $('#backToTopBtn');
 window.addEventListener('scroll', () => {
   if (window.scrollY > 300) {
@@ -525,6 +517,7 @@ function getUsdPriceByGroup(groupName) {
 }
 
 function getShippingFee(str) {
+  if (!str) return 0;
   if (str.includes('+$10')) return 10;
   if (str.includes('+$15')) return 15;
   if (str.includes('+$37')) return 37;
@@ -674,9 +667,11 @@ function switchLanguage() {
 
   if (currentLang === 'en') {
     $('#shipSection').hidden = false;
+    $('#shipRegion').required = true;
   } else {
     $('#shipSection').hidden = true;
-    $('#shipRegion').value = 'none';
+    $('#shipRegion').required = false;
+    $('#shipRegion').value = '';
   }
 
   if (current && $('#dlg').open) {
@@ -805,7 +800,7 @@ async function estimate() {
   if (currentLang === 'en') {
     let baseUsd = getUsdPriceByGroup(current.group);
     if (brand() === 'android') {
-      baseUsd += 2; // Android +$2
+      baseUsd += 2; 
     }
     let shipVal = getShippingFee($('#shipRegion').value);
     let totalUsd = baseUsd + shipVal;
@@ -849,7 +844,8 @@ function openOrder(c) {
   hadSticker = !!$('#sticker').value.trim();
   
   if(currentLang === 'en') {
-    $('#shipRegion').value = 'none';
+    $('#shipRegion').value = '';
+    $('#shipRegion').required = true;
   }
   
   estimate();
@@ -862,6 +858,12 @@ function openOrder(c) {
 
 $('#orderView').addEventListener('submit', async e => {
   e.preventDefault();
+  
+  if (currentLang === 'en' && !$('#shipRegion').value) {
+    $('#err').textContent = "Please select a shipping region.";
+    return;
+  }
+
   $('#send').disabled = true;
   $('#err').textContent = '';
   const t = langData[currentLang];
@@ -871,7 +873,7 @@ $('#orderView').addEventListener('submit', async e => {
     const shipSel = $('#shipRegion').value;
     let baseUsd = getUsdPriceByGroup(current.group);
     if (brand() === 'android') {
-      baseUsd += 2; // Android +$2
+      baseUsd += 2; 
     }
     const shipFee = getShippingFee(shipSel);
     const totalUsd = baseUsd + shipFee;
@@ -903,7 +905,7 @@ $('#orderView').addEventListener('submit', async e => {
       if (currentLang === 'en') {
         let baseUsd = getUsdPriceByGroup(current.group);
         if (brand() === 'android') {
-          baseUsd += 2; // Android +$2
+          baseUsd += 2; 
         }
         const shipFee = getShippingFee($('#shipRegion').value);
         const totalUsd = baseUsd + shipFee;
